@@ -1,0 +1,1000 @@
+In this paper, we propose ComBIM, a community-based solution approach for solving the BIM problem.
+We have compared the obtained results with that of other methodologies from the literature and observe that ComBIM can achieve the better influence spread, while taking reasonable time for seed set selection.
+A social network is an interconnected structure among a group of agents, formed for social interactions.
+One key area of research in the domain of computational social network analysis is the problem of Social Influence Maximization (SIM Problem), which asks for selecting top- k influential users from the network
+Due to its practical applications in different domains, such as viral marketing, personalized recommendation, feed ranking, finding influential twitters etc., this problem is well studied and plethora of solution methodologies are available in the literature.
+For each node of the network, there is an associated selection cost, which signifies the amount of incentive required to be paid.
+In this situation, the basic SIM Problem does not fit, as this problem assumes the uniform selection cost for all the nodes.
+However, in reality, different users of the network have different incentive demands.
+Relaxing the assumptions made by the SIM Problem and to deal with the real life situations, Budgeted Influence Maximization Problem ( BIM Problem ) had been introduced by Nguyen and Zheng (2013) .
+Though the BIM Problem is more practical than the SIM Problem, it is not extensively studied.
+Social influence occurs due to the diffusion of information in the underlaying network.
+To study the diffusion process, there are two popular probabilistic models available in the literature: (i) Linear Threshold Model (LT Model), (ii) Independent Cascade Model (IC Model)
+To study the BIM Problem, a social network is represented by a graph, where each node is characterized by its diffusion threshold and selection cost , whereas each edge is associated with a diffusion probability .
+Nguyen and Zheng (2013) first studied the BIM Problem and proposed an approximation algorithm with provable guarantee and a directed acyclic graph -based heuristic for this problem.
+To increase the number of influenced nodes within reasonable computational time, in this study, we propose a Community-Based Solution Approach for the BIM Problem.
+Section 3 describe background concepts and the BIM Problem.
+Section 4 contains a detailed description of our proposed methodology.
+Section 5 contains the experimental evaluations for the proposed methodology.
+Finally, Section 6 draws conclusion of our study and gives future directions.
+Here, we present related studies from the literature in the following directions: (i) Social Influence Maximization , (ii) community detection in social networks , and (iii) community-based approaches for influence maximization .
+Given a graph representation of a social network, finding the set of influential nodes is referred to as the SIM Problem or Target Set Selection Problem (TSS Problem, in short).
+There are several variants of this problem defined and studied in the literature.
+Initially, the problem of target set selection was posed by Domingos and Richardson in the context of viral marketing.
+The basic TSS Problem is popularly known as the Top- k node problem, which asks for finding a set of k nodes, whose initial activation maximize the influence in the network.
+Kempe et al. (2003) studied the computational issues of the problem and proved that it is NP-Hard under both IC and LT Models .
+They formulated both the Top-k Node Problem and λ Coverage Problem as a co-operative game problem solved using the concept of shapley value .
+They introduced the Weighted Target Set Selection Problem for the social networks, where each node has a specific weight.
+This problem asks for finding a subset of nodes with total minimum node weight, whose initial activation will maximize the spread of influence.
+They introduced the r-round min TSS Problem , which asks for finding a minimum cardinality seed set to maximize the influence within r rounds of diffusion.
+Nguyen and Zheng (2013) introduced the problem of Budgeted Influence Maximization (BIM).
+This problem assumes that each node has a selection cost , and seed set has to be chosen within a fixed budget.
+Naturally, the problem here is to select a seed set within the budget to maximize the influence in the network.
+KNN algorithm fairs across all parameters of considerations.
+A community in a network is defined as the set of nodes, which are very densely connected among themselves, and sparsely connected with other parts of the network.
+Detecting community in a network is the prob- lem of partitioning the nodes into groups.
+Readers are referred to them for some recent surveys.
+One of the properties of social networks is that, they contain a strong community structure.
+There exist many metrics in the literature, which are used for detecting and evaluating communities in social networks.
+The higher value of modularity signifies the better community structure in the network.
+Hence, this metric has been used for maximization to detect communities, known as modularity maximization approach.
+As maximization of modularity is NP- Hard, several heuristics had been proposed in the literature to get the suboptimal partition of the network.
+In this paper, we exploit the community structure of the network for solving the BIM Problem.
+Due to gigantic size of the real life social networks, solving the influence maximization problem by considering the network as a single entity, incurs a huge computational burden.
+That's why, researchers have tried to scale down the problem of influence maximization into community level, which performs well in most of the real-world social networks.
+It is reported in the literature, that solving the influence maximization problem into community level is one of the potential applications of community detection.
+Chen, Zhu, Peng, Lee, and Lee (2014) developed a community-based framework for solving Social Influence Maximization problem, which outperforms existing methodologies in terms of both scalability and efficiency.
+Their method was developed based on finding the influential communities by incorporating local and global influences.
+Recently, Shang, Zhou, Li, Liu, and Wu (2017) proposed a community-based solution framework for influence maximization problem.
+Results reported by them show acceptable computational time even for networks with millions of nodes and hundreds of millions of edges.
+They proposed a solution methodology for influence maximization under competitive linear threshold model.
+Hosseini-Pozveh, Zamanifar, and Naghsh-Nilchi (2017) developed a community-based approach for finding influential nodes in a social network.
+Here, V (G) = { u 1 , u 2 , . . . , u n } is the set of users of the network, and E(G) = { e 1 , e 2 , . . . , e m } is the social ties among the users.
+K-Nearest Neighbour is one of the simplest Machine Learning algorithms based on Supervised Learning technique.
+3.1  -  Use Euclidean distance, Hamming, or Manhattan to calculate the distance between test data and each row of training.
+The diffusion threshold and the selection cost of the user u i is denoted as θ( u i ) and C(u i ) , respectively.
+One of them is the IC Model, which captures the independent behavior of the users and the other one is the LT Model, which captures the collective behavior of the users.
+In both the models information is diffused in discrete time steps, a node can be either one of the two states: active (influenced) or inactive (not influenced), a node can change its state from inactive to active however, not the vice-versa.
+However, it can capture the realistic diffusion scenarios as mentioned in Goldenberg, Libai, and Muller (2001) .
+Hence, many existing studies on influence maximization considers the IC Model as the underlying model of diffusion.
+To study the Budgeted Influence Maximization Problem, we are given a social network with nonuniform selection cost of the nodes, and fixed amount of budget B, that can be spent for seed selection process.
+The problem is to select a seed set S ⊆ V (G) , such that influence in the network, i.e., σ(S) becomes maximized.
+So, this problem can not be expected to be solved optimally in polynomial time unless P = NP .
+In this section, we present a detailed description of our proposed methodology (ComBIM), and illustrate it with an example.
+Fig. 1. Phases of the proposed community-based solution approach for BIM Problem.
+Now, we define some terminologies, which we shall use in the subsequent section to describe our algorithm and analyze it.
+It is defined as the sum of the selection costs of all the nodes present in that community.
+Intra Community neighborhood of a node is defined as the set of other nodes within the community, to which that node is directly linked, and intra community degree of a node is the cardinality of its intra community neighborhood.
+For a given undirected, unweighted network, the number of edges will be half of the sum of degrees by Euler's
+Edges of the network can be classified into two categories: intra community edges (both the end vertices are in the same commu- nity), and inter community edges (end vertices are in two differ- ent communities).
+K-NN algorithm stores all the available data and classifies a new data point based on the similarity.
+The sum of the cut matrix entries along with the total intra community degree will be same as the total degree of the graph.
+We are storing the community structure in the array C of length n .
+Next, we compute all the required informations for ComBIM, such as node and cost fraction of each community and the cut matrix of the network.
+While scanning the array C , for each index, the number of nodes of the community to which the node at the current index belongs is incremented by 1, and cost of the corresponding community is incremented by the selection cost of that node.
+Next, we sum up the costs of all the communities to compute the cost of the network.
+We divide the number of nodes and cost of each community by the number of nodes and the cost of the network, respectively, to calculate the node fraction and cost fraction of each community.
+Algorithm 1 describes this procedure.
+However, for giving equal priority to each community, the budget distribution process has to consider both the node fraction and cost fraction of the communities due to the following reason.
+Computation cost is quite high because we need to compute the distance of each query instance to all training samples.
+This situation can arise between any two communities.
+To get rid of this dilemma, we split the total budget β into two equal parts.
+For this purpose, communities are processed from the smaller to larger.
+At first, intra community degree (defined in Section 4.1 ) of each node of the community is computed.
+The highest intra community degree node is picked up first, and checked whether its selection cost is less than or equal to the budget of the community or not.
+If it is found to be less, then the node is selected as the seed node, and budget of that community is reduced by the selection cost of that node.
+This process is continued until the total budget is exhausted or by the remaining budget no more seed can be selected.
+Now, it is important to note that at the end of seed selection of a community, there may be some unutilized budget.
+This will happen, when in an intermediate iteration, the updated budget is less than the selection costs of the remaining nodes of the community.
+If there is a tie among more than one communities, it can be broken arbitrarily.
+Algorithm 2 describes the procedure for last three phases.
+in Algorithm 2 , we need to compute the intra community out-degree instead of intra community degree, and (iii) in Algorithm 2 , the unutilized budget of a community is to be transferred to a community, which has the maximum number of outgoing edges to the previous community and for which seed selection has not been done.
+Complexity analysis of ComBIM Algorithms 1 and 2 together constitute the ComBIM Procedure.
+Hence, the complexity of ComBIM will be the sum of the complexities of Algorithms 1 and 2 .
+In Algorithm 1 , from Line number 1 to 5, we initialize one variable and define some required data struc- tures, which requires O(1) time.
+Then, detecting communities in Line number 6 will have the time requirement of O(nd) where n and d denote the number of nodes and average degree of the network, respectively.
+From Line number 7 to 18, the number of nodes, cost of each community and Cut matrix of the network are computed.
+This step requires O(n 2 ) time.
+Then, the cost of the network is computed by summing up the cost of each community, which requires O(l) time.
+Next, the node fraction and cost fraction of each community are computed, which again requires, O(l) time.
+Total time requirement of Algorithm 1 is of O(n 2 + nd + l) .
+Then, for sorting the communities based their number of nodes will take O(l log l) time (Line Number 3).
+Next, allocated budget for each community is computed based on node and cost fraction from Line Number 4 to 6, which requires O(l) time.
+Then, from Line number 7 to 27 for each community, the following operations are performed.
+First, the intra community degree of each node is computed and based on the allocated budget and intra community degree of the nodes and their selection cost, seed nodes are selected.
+Computing of intra community degree from Line number 9 to 13 will take O(n 2 ) time using the array C .
+Then, budget transfer phase (from Line number 23 to 26) will take O(l) time.
+Hence, the total time requirement for selecting seed set of the largest community is of order O(n 2 + l) .
+For all the communities running time of intra community degree computation, seed selection and budget transfer (from Line Number 7 to 27) will take O(l n 2 + l 2 ) .
+Now, we compute all the required information using Algorithm 1 .
+Hence, this unutilized budget is transferred to the Community K 1 .
+Seed Set Selection for the Community K1 : Allocated budget for this community is 35.56 units.
+Additionally, 5.33 units and 1.11 units of budget are transferred from the Communities K3 and K2 , respectively.
+Hence, the total budget, that we can utilize for seed set selection for the Community K1 is 42 units.
+After choosing the first four nodes from the list, the remaining budget is 2 units.
+Companies Using KNN, Companies like Amazon or Netflix use KNN when recommending books to buy or movies to watch.
+Initially, we start with a brief description of the datasets.
+In our experiment, we use three different publicly available social network datasets appeared in two different contexts.
+First and second one are the collaboration networks among researchers and third one is the co-purchasing network of an e-commerce house.
+All the datasets are downloaded form Stanford Large Network Dataset Collections (SNAP) .
+They are the edge weights (diffusion probabilities), selection cost of the nodes and allocated budget for seed set selection process.
+The later case is not very realistic, that in every social context, diffusion probability will be high.
+Selection cost of each node of the network is assigned to an integer generated uniformly at random from the interval of [50,100].
+To study the BIM Problem, this kind of setup has been adopted previously in Nguyen and Zheng (2013) . 
+However, it may happen that the budget is not fully exhausted and also, no more node can be selected by utilizing the remaining budget.
+This leads to the unnecessary looping without selecting any seed node and in the worst case, it may lead to infinite loop .
+To avoid this situation, we fix that if in consecutive 6 iterations, no seed node is selected, then we exit and return the remaining budget as unutilized.
+In this method, nodes are sorted based on the degree and chosen from the sorted list until the whole budget is exhausted.
+However, it may end up with some unutilized budget.
+This method has also been used as baseline algorithm in many studies.
+This is a directed acyclic graph-based heuristic .
+This heuristic uses the single pass belief propagation (SPBP) heuristic to estimate the influence during the seed set selection.
+We implement these algorithms including the proposed one in Python 2.7 + NetworkX 1.9.1 environment.
+All the experiments are carried on a cluster running on CentOS 6.7 environment, having 5 nodes and each node having 64 cores and 64 GB of RAM.
+In each instance, we mainly concern with the (i) Expected number of influenced nodes at the end of diffusion and (ii) computational time for seed set selection.
+However, we also report the number of seed nodes selected (LS) and the amount of unutilized budget (UB).
+From Fig. 3 (a) and (b), it is clearly observed that the seed set selected by ComBIM leads to more number of influenced nodes compared to other baseline methods.
+We also observe, that the difference in the number of influenced nodes of ComBIM with respect to the other baseline methods increases with the increase of the budget.
+So, the seed nodes are spreaded uniformly (atleast to some extent) across the network.
+Conversely, in case of general centrality-based methods, such as MAX_DEG and MAX_CLUS, it may happen that many seed nodes are clustered into the same region of the network.
+In this method also, there is a significant chance that many of the seed nodes are clustered in a particular zone of the network and this can cause the unacceptable performance.
+On the other hand, DAG1-SPBP heuristic selects the seed set based on the localized zone of the influence spread.
+In this case, influence zone of two seed nodes can overlap to a large extent and finally, this may cause less influence spread.
+From the plots, we observe that for uniform probability setting, the influence caused due to the seed set selected by ComBIM is more compared to the seed sets selected by other baseline methods.
+The rest job is just to investigate the computational time requirement for seed set selection by both the proposed as well as baseline algorithms for different datasets.
+It is important to mention that for different diffusion probability settings, the seed set selection time will not be different.
+DAG1-SPBP heuristic calls the influence spread estimating function in each iteration during seed set selection and hence, it is time consuming.
+Detecting community once is much faster than the spread computation in each iteration.
+Though the running time ComBIM is more  than the MAX_CLUS, MAX_DEG and RANDOM, ComBIM can be preferred due to the following two reasons.
+The proposed methodology is broadly divided into four phases: Community Detection, Budget Distribution, Seed Set Selection and Bud- get Transfer.
+Experimental results on real life social networks with different diffusion probability settings showed that seed set selected by ComBIM can achieve the better influence spread compared to some state-of-the-art heuristics of the literature, while taking reasonable time.
+As we bring down the problem into community level, each community can be processed separately for the seed set selection.
+The second direction for extending this work could be, proposing new budget distribution scheme, when different communities will have different priorities for influencing the nodes that it contains.
+Here is a quick introduction to the simplest machine language algorithms  -  KNN  -  which will help you grasp its key dynamics.
+K-Nearest Neighbors algorithm (or KNN) is one of the most used learning algorithms due to its simplicity.
+KNN was born out of research done for the armed forces.
+In supervised learning, you train your data on a labelled set of data and ask it to predict the label for an unlabeled point.
+For example, a tumour prediction model is trained on many clinical test results which are classified either positive or negative.
+If a teacher wants the child to learn how an elephant looks like, he will show the child pictures of elephants, and then pictures of animals which are not elephants like zebras and monkeys.
+When we substitute the child with a computer, it becomes supervised machine learning.
+KNN is very simple and is often used as a benchmark for more complex classifiers like the Support Vector Machines (SVM) and the Artificial Neural Networks (ANN).
+Calculating credit ratings  -  KNN can help when calculating an individual's credit score by comparing it with persons with similar traits.
+Other areas that use the KNN algorithm include Video Recognition, Image Recognition, Handwriting Detection, and Speech Recognition.
+There was even a $1 million award on Netflix to the team that could come up with the most accurate recommendation algorithm!
+How do these companies make recommendations?
+Well, these companies gather data on the books you have read or movies you have watched on their website and apply KNN.
+The companies will input your available customer data and compare that to other customers who have purchased similar books or have watched similar movies.
+The books and movies recommended depending on how the algorithm classifies that data point.
+How does KNN works?
+The k-nearest neighbor algorithm stores all the available data and classifies a new data point based on the similarity measure (e.g., distance functions).
+This means when new data appears.
+To solve this problem, we need a K-NN algorithm.
+With the help of K-NN, we can easily identify the class of a particular dataset.
+The data point is classified by a majority vote of its neighbors, with the data point being assigned to the class most common amongst its K nearest neighbors measured by a distance function.
+KNN captures some mathematics you learned as a child as you were trying to grasp the calculation of the distance between points on a graph.
+To get the right K, you should run the KNN algorithm several times with different values of K and select the one that has the least number of errors.
+Taking a majority vote among labels needs K to be an odd number to have a tiebreaker.
+To understand better the working KNN algorithm applies the following steps when using it:Step 1  -  When implementing an algorithm, you will always need a data set.
+Step 2  -  Choose the nearest data points (the value of K).
+Step 3  -  Do the following, for each test data 
+3.4  -  Based on the most appearing class of these rows, it will assign a class to the test point.
+Some Advantages of KNN: Quick calculation time Simple algorithm  -  useful for regression and classification - High accuracy  -  you do not need to compare with better supervised learning models -No assumptions about data  -  no need to make additional assumptions, tune several parameters, or build a model.
+K Nearest Neighbour is a simple algorithm that stores all the available cases and classifies the new data or case based on a similarity measure.
+Two chemical components called Rutime and Myricetin.
+Consider a measurement of Rutine vs Myricetin level with two data points, Red and White wines.
+Let's say k = 5 and the new data point is classified by the majority of votes from its five neighbours and the new point would be classified as red since four out of five neighbours are red.
+There is no structured method to find the best value for "K".
+Choosing smaller values for K can be noisy and will have a higher influence on the result.
+Larger values of K will have smoother decision boundaries which mean lower variance but increased bias.
+Take the small portion from the training dataset and call it a validation dataset, and then use the same to evaluate different possible values of K.
+In the classification setting, the K-nearest neighbor algorithm essentially boils down to forming a majority vote between the K most similar instances to a given "unseen" observation.
+Similarity is defined according to a distance metric between two data points.
+A popular one is the Euclidean distance method Other methods are Manhattan, Minkowski, and Hamming distance methods.
+Cons of KNN: Need to determine the value of parameter K (number of nearest neighbors)
+In this article, we will learn about a supervised machine learning algorithm called K-Nearest Neighbors (KNN).
+As a prerequisite, a little understanding of machine learning and Python would help beginners.
+According to Wikipedia, Supervised learning is the machine learning task of learning a function that maps an input to an output based on example input-output pairs.
+We use training data with features and labels, to enable the machine to learn first.
+Later, it is being validated or tested using the test data.
+K-Nearest Neighbors (KNN) algorithm is one such supervised learning method that can be used for classification and regression.
+Classification refers to a predictive modeling problem where a class label is predicted for a given example of input data.
+We can use Euclidean distance or Manhattan distance.
+K-NN algorithm assumes the similarity between the new case/data and available cases and put the new case into the category that is most similar to the available categories.
+So for this identification, we can use the KNN algorithm, as it works on a similarity measure.
+Our KNN model will find the similar features of the new data set to the cats and dogs images and based on the most similar features it will put it in either cat or dog category.
+To solve this type of problem, we need a K-NN algorithm.
+With the help of K-NN, we can easily identify the category or class of a particular dataset.
+The K-NN working can be explained on the basis of the below algorithm: Step-1: Select the number K of the neighbors Step-2: Calculate the Euclidean distance of K number of neighbors Step-3: Take the K nearest neighbors as per the calculated Euclidean distance.
+Consider the below image: Firstly, we will choose the number of neighbors, so we will choose the k = 5 .
+The Euclidean distance is the distance between two points, which we have already studied in geometry.
+Our focus will be primarily on how does the algorithm work and how does the input parameter affects the output/prediction.
+To evaluate any technique we generally look at 3 important aspects.
+Let us take a few examples to  place KNN in the scale.
+It is commonly used for its easy of interpretation and low calculation time.
+Let's take a simple case to understand this algorithm.
+Following is a spread of red circles (RC) and green squares (GS) :You intend to find out the class of the blue star (BS).
+As you can see, the error rate at K=1 is always zero for the training sample.
+The "K" in KNN algorithm is the nearest neighbor we wish to take the vote from.
+If we see the last example, given that all the 6 training observation remain constant, with a given K value we can make boundaries of each class.
+These boundaries will segregate RC from GS.
+In the same way, let's try to see the effect of value "K" on the class boundaries.
+The training error rate and the validation error rate are two parameters we need to access different K-value.
+Following is the curve for the training error rate with a varying value of K.
+If validation error curve would have been similar, our choice of K would have been 1.
+Following is the validation error curve with varying value of K: This makes the story more clear.
+At K=1, we were overfitting the boundaries.
+Hence, error rate initially decreases and reaches a minima.
+To get the optimal value of K, you can segregate the training and validation from the initial dataset.
+Here we will use Euclidean distance as our distance metric since it's the most popular method.
+A very low value for K such as K=1 or K=2, can be noisy and lead to the effects of outliers in the model.
+In this article, we will discuss the most important questions on the K Nearest Neighbor (KNN) Algorithm which is helpful to get you a clear understanding of the algorithm, and also for Data Science Interviews, which covers its very fundamental level to complex concepts.
+Let's get started.
+KNN(K-nearest neighbours) is a supervised learning and non-parametric algorithm that can be used to solve both classification and regression problem statements.
+It uses the euclidean distance formula to compute the distance between the data points for classification or prediction.
+Step-3: Store the K nearest points from our training dataset
+The term "non-parametric" refers to not making any assumptions on the underlying data distribution.
+What is "K" in the KNN Algorithm?
+K represents the number of nearest neighbours you want to select to predict the class of a given item, which is coming as an unseen dataset for the model.
+For each of the unseen or test data point, the kNN classifier must: Step-1: Calculate the distances of test point to all points in the training set and store them Step-2: Sort the calculated distances in increasing order
+Is Feature Scaling required for the KNN Algorithm?
+When these values are substituted in the formula of Euclidean Distance, this will affect the performance by giving higher weightage to variables having a higher magnitude.
+The distance calculation step requires quadratic time complexity, and the sorting of the calculated distances requires an O(N log N) time.
+For regression problem statements, the predicted value is given by the average of the values of its k nearest neighbours.
+It needs to store all the data and then make a decision only at run time.
+It includes the computation of distances for a given point with all other points.
+So if the dataset is large, there will be a lot of processing which may adversely impact the performance of the algorithm.
+Sensitive to noise: Another thing in the context of large datasets is that there is more likely a chance of noise in the dataset which adversely affects the performance of the KNN algorithm since the KNN algorithm is sensitive to the noise present in the dataset.
+Unlike regression, create k dummies instead of (k-1).
+For example, a categorical variable named "Degree" has 5 unique levels or categories.
+So we will create 5 dummy variables.
+You have to play around with different values to choose which value of K should be optimal for my problem statement.
+Choosing the right value of K is done through a process known as Hyperparameter Tuning.
+No method is the rule of thumb but you should try the following suggestions.
+Start with the minimum value of k i.e, K=1, and run cross-validation, measure the accuracy, and keep repeating till the results become consistent.
+Step-4: Calculate the proportions of each class  Step-5: Assign the class with the highest proportion
+Domain Knowledge: Sometimes with the help of domain knowledge for a particular use case we are able to find the optimum value of K (K should be an odd number).
+Problem with having too small K: The major concern associated with small values of K lies behind the fact that the smaller value causes noise to have a higher influence on the result which will also lead to a large variance in the predictions.
+Problem with having too large K: The larger the value of K, the higher is the accuracy.
+As a result, the error will go up again.
+So, to prevent your model from under-fitting it should retain the generalization capabilities otherwise there are fair chances that your model may perform well in the training data but drastically fail in the real data.
+Therefore, K should not be too small or too large.
+KNN is the only algorithm that can be used for the imputation of both categorical and continuous variables.
+A Scikit learn library of Python provides a quick and convenient way to use this technique.
+Note: NaNs are omitted while distances are calculated.
+The missing values will then be replaced by the average value of their "neighbours".
+The basic idea behind the kNN algorithm is to determine a k-long list of samples that are close to a sample that we want to classify.
+If K is large, then there will be a lot of processing to be done which may adversely impact the performance of the algorithm.
+So, the following things must be considered while choosing the value of K: K should be the square root of n (number of data points in the training dataset).
+It does not learn anything during the training period since it does not find any discriminative function with the help of the training data.
+In simple words, actually, there is no training period for the KNN algorithm.
+It stores the training dataset and learns from it only when we use the algorithm for making the real-time predictions on the test dataset.
+As a result, the KNN algorithm is much faster than other algorithms which require training.
+For Example, Support Vector Machines(SVMs), Linear Regression, etc. Moreover, since the KNN algorithm does not require any training before making predictions as a result new data can be added seamlessly without impacting the accuracy of the algorithm.
+Since both the parameters are easily interpretable therefore they are easy to understand.
+Does not work well with high dimensions: KNN algorithms generally do not work well with high dimensional data since, with the increasing number of dimensions, it becomes difficult to calculate the distance for each dimension.
+Sensitive to Noise and Outliers: KNN is highly sensitive to the noise present in the dataset and requires manual imputation of the missing values along with outliers removal.
+Yes, KNN can be used for image processing by converting a 3-dimensional image into a single-dimensional vector and then using it as the input to the KNN algorithm.
+What are the real-life applications of KNN Algorithms?
+Moreover, the very nature of a credit rating where people who have similar financial details would be given similar credit ratings also plays an important role.
+Hence the existing database can then be used to predict a new customer's credit rating, without having to perform all the calculations.
+Centre for Science and Technology Studies, Leiden University (The Netherlands)   A Sleeping Beauty in Science is a publication that goes unnoticed ( sleeps ) for a long time and then, almost suddenly, attracts a lot of attention ( is awakened by a prince ).
+It is our experience in the application of bibliometric methods in research evaluation(MOED et al., 1995; VAN RAAN, 1996) that on quite a few occasions, scientists claimed that one or more of their publications will not be picked up for a while, as they are ahead of time .
+So the search for sleeping beauties is not just an exotic whim, but a necessity in order to have an answer to Mendel-like claims.
+There are three main variables: (1) depth of sleep, we take two modalities: the article receives at most 1 citation on average per year (deep sleep), or between 1 to 2 citations on average per year during a specific period (less deep sleep);
+For instance, in the case of s = 10 the number of citations cs (self-citations excluded) is between 0 and 10 (indicated throughout this paper as [0,10]) for deep sleep, and cs = [11,20] for less deep sleep.
+For instance, we found for 1988 in total 41 articles (from about 1,000,000 articles published in 1988) that after a deep sleep of 10 years received during the next four years (the awakening period ) between 21 and 30 citations (about 6 to 7 citations on average per year).
+The total number of publications in the data-system increases from 656,991 in 1980 to 1,046,839 in 2000.
+I am grateful to Professor Eric Bergshoeff (University of Groningen), Professor Joseph Polchinsky (University of California at Santa Barbara) and Dr Larry Romans (Jet Propulsion Laboratory) for their stimulating comments.
+This study analyzes a census-balanced sample of online adults (n = 751) to identify consumers' perceptions of using social media data for marketing purposes.
+Marketing comfort refers to an individual's comfort with the use of information posted publicly on social media for targeted advertising, customer relations, and opinion mining.
+In this context, this study seeks to help marketing professionals develop strong professional principles and guidelines while still being able to benefit from many opportunities that social media has to offer to both sides: consumers and businesses.
+In the following, we outline the: (1) relevant literature on social media marketing and ethics in marketing, (2) use of Petronio's communication privacy management theory to guide the research and the three hypotheses, (3) methods and data analysis, (4) results of the data analysis, (5) discussion, and (6) conclusions including the limitations and implications of the research.
+In the internet era, the possibility of collecting massive amounts of personal consumer data has caused a shift in consumers' privacy concerns, which has critical implications for evaluating the ethical practices in marketing, as discussed in the following section.
+At its core, the theory describes how individuals develop their own privacy rules to calculate the risks and benefits of disclosing information.
+The research hypotheses were tested with data from a cross-national survey based on the internet panel hosted by Research Now.
+The broad research goal of the survey was to understand individuals' social media use, privacy concerns, and comfort with third parties mining their publicly available information on social media.
+The research proposal was approved by the university's Research Ethics Board in Canada.
+The use of an online panel does not bias the survey results becausethe survey solely focuses on internet users.
+Participants that met the quota sampling requirements were shown a consent form that described the purpose, outlined what participants were being asked to do and estimated time of completion, defined potential benefits and risks, assured anonymity, outlined data protection and storage processes, described incentives, identified rights of research participants, and provided contact information for the research team.
+Second, marketers can scrape publicly available data from various social networks and are able to aggregate the data for marketing purposes.
+The survey asked respondents to indicate whether each of their social media accounts were primarily public or private.
+There is one exception: the heterotrait-monotrait ratio of correlations between secondary use and unauthorized access yields a value of 0.88.
+The inclusion of additional variables, which will be discussed in the following section, could help to increase the predictive power of the model.
+Our research fills this gap by developing a nuanced understanding of consumers' comfort with social media marketing practices.
+Marketing comfort comprises the three main functions of using social media data for marketing purposes: pulling, pushing, and exchanging information.
+Tounderstand this growing duality, it is useful to recognize different levels of data access in terms of who is accessing social media data and for what purposes.
+This finding points to the need for consumer education on the emerging marketing practices that may be less apparent in the day-to-day use of social media.
+Furthermore, future work should address consumer intention and behaviour as a response to concerns of marketers using consumers' social media data.
+Considering the recent changes to Facebook's ad platform that explicitly identifies why users are seeing a particular ad, future research should analyze how these disclaimers influence people's comfort with the practice of microtargeting.
+As of 2018, Facebook only applies this form of disclosure to political ads, but we contend this practice should be expanded to other forms of advertising and other social media platforms.
+Abstract --  ARM processors are leaders in embedded systems, delivering high-performance computing, power efficiency, and reduced cost.
+This paper proposes a lockstep approach to protect against soft errors the dual-core ARM Cortex-A9 processor, which is a hard-core processor embedded into Xilinx Zynq-7000 FPGA.
+The lockstep is a technique based on hardware and software redundancy for error detection and correction, which uses the concepts of checkpoint combined with rollback mechanism at software level, and processor duplication and checker circuits at hardware level.
+The proposed approach shows that the technique can be efficiently implemented in dualcore processors to make systems more reliable in radiation environments.
+In terms of performance overhead, results show the dependency on the number of checkpoints with the relation between the application size and the checkpoint and rollback routines.
+Ionizing particles originated from the spatial environment can interact with the silicon provoking transient pulses in some susceptible areas, which leads to bit-flips in the sequential logic that later on can lead to errors and failures in the system [1].
+However, SRAM-based FPGAs are very susceptible to radiation effects because they are composed of millions of SRAM cells used to configure all the synthesized logic, the embedded processors, DSPs, and memories [6].
+Software-based techniques introduce extra instructions and redundant information to be able to detect or correct soft errors in the processor.
+DCLS is a hybrid technique based on hardware and software redundancy for error detection and correction, which uses the concepts of checkpoint combined with rollback mechanism at software level, processor duplication and checker circuits at hardware level.
+In [7], authors have applied a lockstep technique on the hard-core PowerPC processor embedded on Xilinx Virtex II-Pro target device.
+In [8][9], authors proposed a lockstep approach to protect the soft-core Leon2 processor implemented into a Xilinx Virtex device.
+An enhanced lockstep scheme using two soft-core MicroBlaze processors and implemented on a Xilinx Virtex-5 FPGA is proposed in [11].
+Through fault injection on the configuration bits it was observed that 8.6% bits of the MicroBlaze core are sensitive, where 2.3% of them cause persistent errors.
+As case study, we applied the DCLS in a dual-core ARM Cortex-A9 processor embedded into Zynq7000 APSoC.
+As both CPUs have equal resources and run duplicated software in a symmetric way, it is expected that they perform the same operations, allowing monitoring the processors' data, addressing, and controlling buses [2].
+The data outputs of both processors are periodically compared by a checker module, which verifies the data and decides the next steps.
+Any difference between the data outputs implies the occurrence of errors and then a recovery method is applied.
+If the data outputs match, it is assumed that the processors do not have errors and the actual consistent state of the system is saved.
+The context includes all the data resources used in the application execution (i.e. main memory, cache memory, etc), which depends of the application.
+It is necessary to carefully identify the processors' context to ensure that the system will be restored correctly when needed.
+On the system initialization, the master processor configures the slave CPU and then both CPUs simultaneously start executing the application.
+Both processors share an external DDR memory, which is the processors' instructions memory and, in addition, can be used as an alternative safe memory to store the checkpoint of the system.
+The access time to the DDR memory is usually slower than the access to the BRAM memories and so the number of stores in the DDR should be analyzed to do not compromise too much the system performance.
+Fig. 2 (b) represents the program, which was divided in blocks of codes, with the additional code necessary for DCLS implementation.
+If the Checker verifies that both CPUs are fault-free, it generates an interruption request to each one, which allows the processors to access and to save their context.
+Fig. 2 DCLS Functional Flow for dual-core ARM Cortex-A9: (a) unhardened code, (b) code with DCLS technique running in both CPUs and (c) the checker functionality routine is executed, at point three, it accesses the processor's stack and makes a copy to the memory of the registers.
+In this work, we consider two setups to save the processors' context:   DCLS using BRAM memory only (DCLS_BR): the processor's context is saved in the BRAM memories.
+As presented at point four of the interruption request sequence, the processor restores the context from the stack, returning the system to its consistent state.
+If they are not in an equal state, the Checker waits for 100ms until both CPUs match their states.
+The case study system, which runs on the dual-core ARM Cortex-A9 of a Zynq-7000 ApSoC, performs a matrix multiplication operation in bare-metal mode.
+The matrices operations 1, 2, and 3, multiply different matrices inputs but they are all at the same size and contain data of 32 bits.
+In the DCLS implementation the program was divided in three blocks, where each block runs one matrix multiplication, and all the extra code for checkpoints and rollback routines was added as shown in Fig 2.
+As we can observe, the area overhead is around 280% for the logic implemented in the CLBs, but for the processors and memories, the area overhead is only 100%.
+As showed in Table 1, the performance overhead for error-free execution is significantly higher when the execution time of the application is smaller compared to the time to perform the checkpoint operation.
+For applications with a large execution time, the time overhead of DCLS_BR is around 26%, which can be acceptable for high performance computing applications that require high reliability and availability.
+When considering the setups DCLS_BR_DDR the time overhead is higher compared to DCLS_BR, as expected.
+The proposed DCLS was implemented on Zynq-7000 APSoC from Xilinx to protect the embedded dual-core ARM Cortex-A9 processor.
+In future work, we will extend the number of benchmark applications with different sizes to analyse the tradeoff between the numbers of checkpoints and the error latency, which directly impacts in the performance overhead.
+The proposed approach is suitable for COTS microprocessors because it does not modify the microprocessor architecture and is able to detect errors thanks to the reuse of its trace subsystem.
+Validation has been performed by proton irradiation and fault injection campaigns on a Zynq AP SoC including a Cortex-A9 ARM microprocessor and an implementation of the proposed hardware monitor in programmable logic.
+Experimental results demonstrate that a high error detection rate can be achieved on a commercial microprocessor.
+Therefore, they are a primary concern in applications working in extreme environments, such as space, and a growing concern also at the ground level.
+Moreover, their performance generally lags behind commercial processors.
+These techniques have been widely studied and are the basic solution for COTS microprocessors.
+However, they are limited because processors contain many sensitive resources that cannot be directly accessed through software.
+Hardware monitoring uses an additional piece of hardware that can observe the execution flow of the processor through a suitable interface.
+These resources are useless during normal operation, so they can be reused for on-line monitoring in an inexpensive way.
+In particular, the use of program trace interfaces has been proposed and demonstrated for soft cores [5 - 7].
+CoreSight is actually a family of IP (Intellectual Property) modules.
+Both tests provided very similar results.
+Section 4 shows the experimental results.
+The type of detected errors by all these techniques is commonly divided into errors affecting control-flow and errors affecting data.
+Generally, software techniques require larger execution time and increase memory usage (due to the software modifications and required additional storage for comparison information).
+Data duplication consists in duplicating all variables used in a program.
+During program execution, duplicated and original data must be checked.
+Duplication can be performed at instruction, function or even program level.
+Signature-based techniques commonly divide the program code into basic blocks.
+A basic block is a set of instructions with no branches except for possibly the last one.
+At compilation time a signature is assigned to every basic block.
+Assertion-based techniques modify the code by inserting special statements (assertions) that check the data-flow correctness.
+In this case, error coverage can be affected by the assertion location and also by the information included in it, so that they are application-dependent.
+Alternatively, error detection in microprocessors can be accomplished by connecting additional external hardware modules to observe the system behaviour.
+Active watchdog processors decrease the memory needs but increase the complexity and the required area.
+The most common approach is to apply software techniques for data-flow hardening, as data is more complex to observe externally, and use the hardware monitor to detect control-flow errors.
+For instance, in [20] a hardware module is used to monitor the control flow while software fault tolerance techniques are used to detect errors in the data-flow.
+The use of the trace subsystem for on-line monitoring was first proposed in [21] to observe a LEON3 microprocessor.
+An extended approach was proposed in [22], where critical tasks are replicated (in the same microprocessor or in different microprocessors) and the information provided by the trace interface is compared for both executions.
+In [23], a hybrid technique is proposed using the trace interface to harden the execution flow while data errors are handled with SWIFT-R technique.
+A new technique was proposed in [6] that compares the program flow information retrieved from two different points: the trace interface and the memory bus.
+The hardware monitor is capable of decoding and checking program trace information.
+CoreSight [8] is a family of IP modules intended to support the needs for debug access, instruction tracing, crosstriggering and time-stamping.
+Some of the most common CoreSight components are represented on the left side of Fig. 1 as the Instrumentation Trace Macrocell (ITM), the Fabric Trace Monitor (FTM), the Funnel, or the Trace Port Interface Unit (TPIU).
+In this work, we focus on one specific CoreSight component, called Program Trace Macrocell (PTM).
+Two PTM units are provided in the Zynq-7010 AP SoC, called PTM0 and PTM1, one for each core.
+To enable correct interpretation of core execution, ARM PFT architecture also provides full information about exceptions, the instruction set state, security state and current Context ID of the processor.
+The ARM PFT architecture specification ensures a unique header for each packet type to guarantee the correct interpretation of the enclosed information.
+In the ARM PFT protocol, the amount of words in each packet is variable and only by identifying the last word in one packet it is possible to identify the header of the next packet.
+Once the hardware monitor is able to identify and delimit all packet types, any further functionality can be implemented using information available in the received packets.
+In our application, the available information is used to obtain and monitor the Program Counter (PC) of the ARM processor.
+The PC value is obtained using information from three main types of packets: I-sync packet, Branch Address packet and Waypoint Update packet.
+ARM PFT architecture specification defines a waypoint as a point where an instruction might involve a change in the program flow.
+The hardware monitor has been designed to allocate up to eight configurable PC ranges, each of which can be configured through the AXI peripheral interface.
+Any time the hardware monitor detects that actual PC value is not within any of the valid confidence ranges, an error signal is asserted.
+Basically, all variables are duplicated and all operations are also duplicated on the variable copies.
+The device also includes a Programmable Logic (PL) part which was used to implement the proposed hardware monitor.
+The control of the experiment is performed by an external control board that collects and records all the information about the errors that occur during the experiment.
+All the necessary configuration data, including the boot program, the PL configuration bitstream and the application software program are stored in an SD card that is copied to OCM (On Chip Memory) when the device is turned on.
+During the experiments, the SEM is connected to the control board to send all the information about SEU detection, correction and classification.
+The energy of incident protons in the silicon active area is in the order of 10 MeV, which is enough to produce events for the used technology of 28 nm without the need for thinning the devices [24].
+Experimental results show that the proposed approach presents a high capacity of error detection and is able to detect 96.72% of the observed errors.
+Especially, fault injection in the Program Counter (PC) was actually implemented through the Link Register (LR), because the PC takes the contents of the LR upon return from interrupt.
+We injected a total of 53,488 faults, of which 12,040 (23.46%) produced observable errors.
+The only significant difference is that Hang errors occurred more frequently under fault injection, which is due to the narrower focus of the fault injection experiment.
+Notably, the results of both tests were very similar, although fault injection was limited to the ARM core registers.
+Overall network breadth, owner demographics, and business characteristics were significantly associated with the nature of advice and support this preferred advisor provided, even after controlling for advisor type.
+Gender, age, and location predicted the extent to which owners communicated with their preferred advisor online, which affected the level of emotional support received.
+Results suggest the importance of studying the perceived quality of external business advice, and practical implications for facilitating soft support for small business owners.
+Small business owners are encouraged to consult a wide variety of resources, including numerous government-sponsored agencies, professional business advisors, local chambers of commerce, networking groups, online resources, and industry trade associations.
+But there may be diminishing returns to extensive networking, or even negative effects associated with developing large networks (Semrau and Werner, 2012, 2014).
+We examine three novel questions, using an exploratory approach informed by related research in social psychology and organizational behavior.
+While external advice can have demonstrable advantages for small businesses, and substantial public resources are devoted to its provision, owners are often dissatisfied with the advice they receive or fail to adopt it (Mole, 2016).
+Behavioral decision making research has shown that people systematically underweight or reject advice, leading them to make objectively worse decisions (see review by Bonaccio and Dalal, 2006).
+Important factors in whether decision makers judge an advisor positively are whether they believe the advisor is an expert, and whether they trust the advisor has positive intentions toward them (Bonaccio and Dalal, 2010).
+A number of studies have investigated business characteristics and owner-manager demographics as influences, for example showing that highly educated owners and owners of larger firms tend to engage in more networking (Watson, 2012).
+For example, experienced owners who have managed the business for many years may have less need of day-to-day management advice compared to owners of newer businesses.
+Similarly, MacGeorge et al. (2017) found that the emotional support provided by an advisor influences the advisee's perceptions of the quality of the advice, and thus the likelihood of its implementation.
+The degree of emotional support provided by advisors is rarely studied in the entrepreneurship literature, but encouragement in and of itself may be highly valued by some small business owners (Hanlon and Saunders, 2007; Kuhn and Galloway, 2015).
+Research in other contexts suggests possible gender differences in emotional support.
+But now social media and other forms of online communication allow business owners to access a wider pool of potential advisors with relevant expertise, which may be particularly important for those located in very rural areas or those with very specialized businesses (Kuhn and Galloway, 2015).
+Social psychologists have found that computer-mediated communication impedes the development of trust (e.g., Rockmann and Northcraft, 2008; Wilson et al., 2006), making it challenging to develop high-quality interpersonal relationships.
+We ask more detailed questions about that relationship in order to explore factors shaping what small business owners value in advisors.
+We consider network breadth as a possible influence, testing whether those with narrow networks rely more heavily on one source for multiple types of advice compared to those with broader networks.
+The sample examined in this study comprises the 528 respondents (53% men, 47% women) who owned a currently operating business with fewer than 250 employees.
+Thirty-eight percent were categorized as new owners with less than five years' experience running the business.
+The median age of respondents was about 50 years old, and almost all had some post-high school education.
+Respondents could also select "other" and describe that source.
+Fourteen percent named one of several public support agencies (either the SBA, SBDC, one of several state-specific agencies, or a public university extension service) and another 14% chose their professional trade association.
+Notably, the number of respondents whose best and most helpful source was "other business owners via online forum/chat room," was about the same (12%) as those who selected their local chamber of commerce or local business networking club.
+Almost half (45%) had consulted one or more other sources equally as often as their most valued advisor, and 19% of respondents had utilized at least one source more often than they did their most valued advisor.
+For example, one respondent reported consulting a professional trade organization twice and chose it as the most helpful source, although he also had consulted both family/friends and his chamber of commerce/local club four or more times.
+Table 3 presents the multivariate analyses of variance used to examine the effects of business and owner characteristics, network breadth, online communication usage, and advisor source category on receipt of each of the four types of assistance.
+This finding suggests something of a paradox, as women reported receiving more emotional support and used online communication methods more often, even though the level of online communication was negatively associated with degree of emotional support received.
+Accordingly, we re-ran the analyses of variance for the three types of advice and for emotional support (presented in Table 3) with the addition of an interaction term between gender and level of online communication.
+DiscussionSmall business owners have many formal and informal sources from whom they can seek advice.
+But we know relatively little about whether, and why, owner-managers benefit more from some of these relationships than others.
+In this study most owners identified one particular source of advice as having been the most helpful.
+These questions are important avenues for future research.
+Similar to previous studies of networking activity (Watson, 2012), in our sample more educated owners and those with growing businesses sought advice from a greater variety of sources, and men and women owners did not differ in their network breadth after controlling for these and other factors.
+In this study it was not feasible to collect detailed information about the types of advice and support received from every network contact, but future research including these comparisons would be useful.
+Future research to determine the extent to which this pattern is owner-driven (i.e., growth-oriented owners seek out advisors who provide growth advice) or advisor-driven (some advisors are more likely to provide growth advice) is needed, particularly since this may interact with characteristics of the owner.
+One intriguing finding is the strong association between emotional support and advice, bolstering the argument that small business owners are more likely to perceive advice as high quality if they also receive support and encouragement from that source.
+Our results also show that greater usage of online tools to communicate with an advisor may hamper the perception of emotional support, particularly for women.
+Whether initiatives to promote the provision of such support could improve the perceived quality and/or uptake of advice from these formal sources is an important question for future research.
+While being recognised as being important for the development of innovations and technologies of small- and medium-sized firms and for the innovation/technology strategies of large firms, inter-organisational relationships in terms of networks and alliances have received inadequate research attention in the context of corporate entrepreneurship in general and in corporate technological entrepreneurship in particular.
+In industries with high technological opportunities, for a firm to succeed it is important to engage in corporate entrepreneurship and take risks and at the same time make investments in developing products and technologies (Zahra and Covin, 1995).
+For a firm it is beneficial to use its internal and external sources in the pursuit of a competitive advantage by being effective and timely in the commercialisation of new technology (Zahra and Nielsen, 2002).
+Theory and hypothesesCorporate entrepreneurship, also referred to as corporate venturing, internal corporate entrepreneurship (Jones and Butler, 1992) or intrapreneurship (Pinchot, 1985), is defined as entrepreneurship within an existing organisation, including emergent behavioural intentions and behaviours of an organisation related to departures from the customary
+Zahra (1993) wrote about technological entrepreneurship and considered it as one of the innovative aspects of manufacturing firms.
+Dorf and Byers (2005) defined technological entrepreneurship as a style of business leadership that involves identifying high-potential, technology-intensive commercial opportunities, gathering resources such as talent and capital and managing rapid growth and significant risk using principled decisionmaking skills.
+Technology ventures exploit breakthrough advancements in science and engineering to develop better products and services for customers.
+The leaders of technology ventures demonstrate focus, passion and an unrelenting will to succeed.
+Shane and Venkataraman (2003) defined technological entrepreneurship as the processes by which entrepreneurs assemble organisational resources and technical systems and the strategies used by entrepreneurial firms to pursue opportunities.
+Technological entrepreneurship (The Canadian Academy of Engineering, 1998) can be the innovative application of scientific and technical knowledge by one or several persons who start and operate a business and assume financial risks to achieve their vision and goals.
+Corporate technological entrepreneurship can include new production methods and procedures (Schollhammer, 1982).
+The tendency of technological leadership has been considered important for the entrepreneurial posture (Covin and Slevin, 1991).
+Corporate technological entrepreneurship can be mostly concerned with technology-related innovation (process innovation) (Tushman and Anderson, 1997), where technology may be described as `the ensemble of theoretical and practical knowledge, knowhow, skills and artifacts that are used by the firm to develop, produce and deliver its products or servicesy(it) can be embodied in people, materials, facilities, procedures and in physical processes'.
+Because a large field of expertise and a relatively high financial input are needed when the company is established and when it starts growing, a number of other experts from the technological entrepreneur's business networks and outside institutions should also be present during these processes.
+Kauser and Shaw (2004) found that the level of co-ordination (which is based on communication) between partners is higher in successful international strategic alliances than in less successful partnerships.
+According to Das and Teng, `just as control mechanisms are meant to enhance the probability of having the desired behaviour, trust also is useful in enhancing the perceived probability of desired behaviour' (1998, p. 494).
+Weaver and Dickson (1998) considered trust to be a more appropriate assumption than opportunism in alliances among small and mediumsized enterprises.
+Although contracts are an important part of any interorganisational relationship, it is generally accepted that an informal understanding based on trust may prove even more powerful than contracts in assuring a successful relationship (Adobor, 2005).
+Trust may be associated with the length of the relationship in strategic alliances (Parkhe, 1993).
+Saxton argued that `a high level of mutual involvement acts as both a signaling and a monitoring mechanism by establishing and building trust and commitment' (1997, p. 446).
+Kauser and Shaw (2004) found that the level of trust between partners tends to be greater in successful international strategic alliances than in less successful partnerships.
+Trust was also found to be related to the success of vertical partnerships (Mohr and Spekman, 1994) and of the development of a new programme.
+It can also be seen as an essential prerequisite for technological innovation that comes from inter-firm R&D collaboration (Hausler et al., 1994) and appears to be a crucial component in the persistence of networks of innovators (Saxenian, 1991).
+The next hypothesis follows from this discussion:Hypothesis 2b.
+Commitment indicates the willingness of alliance partners to exert effort in the relationship (Porter et al., 1974; Mohr and Spekman, 1994) and was found to be related to the success of vertical partnerships (Mohr and Spekman, 1994).
+In networks, like in a firm, some permeability of boundaries is needed for fostering innovation (Jones et al., 1997).
+Gudmundson et al.'s (2003) study indicates that the initiation and implementation of innovation are related to aspects of culture and ownership.
+Management and organisational support are somewhat blurred with values that refer to cognitive evaluations of appropriate behaviour but, in contrast to organisational values, support is more tangible.
+Support can be expressed through a commitment to inter-organisational relationships in the form of time and resources such as management time commitment, employee rewards and time availability for inter-firm collaboration.
+In high-technology industries, such as biotechnology, innovation may be primarily dependant on organisational learning through inter-organisational collaboration (Powell et al., 1996).
+Centrality in a network can be important for the diffusion of innovations (Pitt et al., 2006).
+Deeds and Hill (1996) found a positive relationship between the use of alliances and new product development.
+Similarly, Rothaermel and Deeds' (2006) findings, based on a study of 325 biotechnology firms, provide broad support for the suggestion that the relationship between alliances and new product development is inverted U-shaped regardless of the alliance type (upstream, horizontal and downstream alliances).
+Deeds and Hill (1996) found that at low levels the relationship is positive but at high levels of strategic alliances the costs of additional alliances outweigh the benefits, causing the rate of new product development to decrease.
+Inter-organisational networks tend to contribute to the diffusion and acceleration of technological innovation (Park, 1996; Robertson et al., 1996).
+In addition, Ritter and Gemunden (2004) found a positive relationship between the degree of a company's innovation success and its level of network competence.
+Companies reported answers for the past 3-year period.
+Trust was measured by scales adopted from Mohr and Spekman (1994) (three items on perceived trust) and from Weaver and Dickson (1998) (three items on perceived opportunistic behaviour).
+The organisational support dimension was operationalised by using three items adapted from Hornsby et al. (1993) and one item adapted from Mohr and Spekman (1994).
+In contrast to the study of Deeds and Hill (1996), who used the number of alliances with different types of firms, the number of alliances was assessed according to different alliance types such as customer - supplier relationships, licensing, technology-sharing, joint development and equity joint ventures, as well as by the overall level.
+More importantly, by using alliancetype-specific questions the measure may be more precise and therefore better understood by managers as well.
+3.2. Data collection, sample and data analysisQuestionnaire data were collected from the top executives of selected firms in Slovenia.
+A representative random sample with 226 usable responses was obtained from a mail survey data from a sample of manufacturing firms with 30 and more employees.
+Thus, the findings of this study may be generalisable to some extent to transition economies (economies with a relatively shorter tradition of a market-based economic system, for example, the countries of Central and Eastern Europe which have transitioned from a planned to a market-based system in the past two decades or so) and to developed economies (economies with a long tradition of a market-based economy, such as, for example, the countries of Western Europe and North America).
+On the basis of the findings based on the model estimations the study pinpoints the alliance element selection strategies with the purpose of developing corporate technological entrepreneurship that may be the most beneficial for the performance of the firm.
+The most important alliance elements in the development of corporate technological entrepreneurship were found: the number of alliances (U-shaped relationship), organisational support and value congruence.
+The key limitations of the study are: the use of perceptual measures, the use of only one predictor (corporate technological entrepreneurship) of performance, and the estimation of the model on a sample of manufacturing firms in only one country.
+Relying on a multi-disciplinary and multi-level approach, the framework highlights a number of internal processes and external network attributes, their interactions and moderating relationships as related to their impact on Chinese enterprises technological entrepreneurship capabilities and their contributions to business performance.
+The paper provides an integrated multi-disciplinary and multi-level research framework that organizes the body of knowledge, scattered in different literature and contexts, in a state-of-the-art piece of the research into technology entrepreneurship capabilities, as well as to identify more specific research questions, model, testable hypothesis and related studies that build on and add value to previous research.
+The key challenge for enterprises is rather how to best exploit and transform the promising technologies into new products and processes (Zahra and Covin, 1993) and expedite the introduction of new products to the market (Stevens et al., 1999).
+Technologies are only more likely to contribute to value creation when they are successfully commercialized, and only when the capabilities to successfully commercialize those technologies are heterogeneously distributed across firms (Barney, 1991).
+Technological entrepreneurship capabilities in this paper are defined as the capabilities to identify and exploit technological opportunities to create new or significantly improved products and to successfully commercialize them.
+We believe that realizing the key role of technology in fostering entrepreneurship is only the first step, working out the analytical logic of its commercialization process and explicating the underlying mechanism come next, and this second step is more crucial for us to have a deeper understanding of the nature of the technological entrepreneurship.
+Then, after a review of the current status of innovation capabilities in Chinese enterprises, factors influencing specifically technological entrepreneurship capabilities in Chinese firms will be discussed.
+More in detail: the stronger role of governmental research institutions, the so-called transnational communities (Saxenian, 2002) and foreign enterprises in innovation and entrepreneurship activities.
+For example, the peculiar relationship between government, science and industry inherited from the pre-opening reform period and, more in general, the strong drive of central and local governmental agencies.
+The system for technological entrepreneurship in ChinaAs a matter of fact, enterprises provide about the 70 percent of R&D expenditure and about one-third of higher education and research institutes R&D spending (Schaaper, 2009).
+This is alleged to be as one of the main weaknesses of the Chinese technology enterprises that hinder their entering the international arena as well as domestic high-end markets.
+Even so, those technological innovations will still need to be brought to the market and successfully commercialized to create the benefits expected.
+That is why to address the challenges rose above, the identification of factors weakening or boosting Chinese enterprises capabilities to fully realize the market potential of technological innovations  - , i.e. their technological entrepreneurship capabilities  -  is a first necessary step.
+Social capital-related literature focuses on external networks characteristics that allows the identification of particular network configurations that might be more conducive to enterprise's technological entrepreneurship capabilities, as well as other environmental factors moderating the relationships between those configurations and competitive advantage and also, more relevant for this study, the acquisition of competitive capabilities.
+The general lack of moderating effect of partnership-based linkages (apart from linkages with venture capital companies) and political networking in the relationship between product strategy and performance, and the negative moderating effect of technological turbulence between marketing capabilities and performance in strategic management surveyed literature, both results found in Chinese enterprises.
+The contingent effects of most of the network characteristics advocated in most of the studies as related in particular to environmental uncertainty in social capital surveyed literature, that might be also applicable to Chinese enterprises.
+Those are not only institutional factors,inparticular as related to government specific industry or technology and entrepreneurship policies, and more in general institutional support when and where available, but also enterprise level factors such as integration capabilities and learning prowess.
+Those network attributes include the mix of strong and weak ties, network position or density.
+Moreover, in countries like China, business environments tend to be highly turbulent and uncertain, caused mostly by policy ambiguity, government intervention and institutional transition.
+Those factors include the IPR regime, environmental turbulence or munificence and other institutional elements.
+This last category of factors has been often used as moderators of the relationships between enterprises' internal and external characteristics and dependent variables such as overall firm performance, new product development performance, acquisition of competitive capabilities, innovation capabilities and so on.
+As a matter of fact, technological opportunities can be identified internally, mainly with R&D activities, as well as from a number of external sources.
+Some of the relationships hypothesized have been tested on Chinese sample, or in other settings, but most of them are referring to theoretical arguments or propositions that have not been found to be tested (at least in the Chinese context) or to hypothesis tested but resulted controversial.
+The framework developed has the potential to give more comprehensive explications of the phenomena under scrutiny, but at the same time cannot explain in details all the possible relationships between its components as a number of separate studies on single components.
+To overcome these limitations, two different directions are now being pursued.
+In this paper, we propose a kind of distortion measurement that is not only based on the discrimination effects after flipping the pixels but also depends on the visual effects of flipping corresponding pixels, which is called joint distortion measurement.
+Therefore, when embedding secret messages into a binary image, we must change the state by flipping some suitable pixels.
+Yang and Kot [6] define a connectivity-preserving criterion for 3  3 patterns to determine the distortion so that image quality can be preserved while pixels are flipped.
+The aim of the proposed method is to create practical algorithm form embedding m bits in n elements cover.
+In addition, the maximum length of embeded messages does not depend on the content of the image, which is different from the methods mentioned above.
+In Section 5, Comparison experiments among different distortion measurements and among different steganographic schemes are reported.
+Inspired by LBP, local texture pattern (LTP) is developed to describe the texture of binary image.
+We can find out that the range of LTPs is from 0 to 511.
+We think that if the smoothness of images is improved, the quality of images we generate can be also effectively improved.
+Theoretically, the basic distortion may have the ability to avoid this situation, which means that it will measure shape like Fig. 2(b) as a high value.
+It demonstrates that the joint distortion measurement brings big benefit to the security of our method.
+Conclusion In this paper, we proposed a joint distortion measurement that release steganography scheme from dividing images into blocks and select appropriate pixels to embed secret message.
+Yang and Kot [6] define a connectivity-preserving criterion for 3  3 patterns to determine the distortion so that image quality can be preserved while pixels are flipped.
+In addition, the maximum length of embeded messages does not depend on the content of the image, which is different from the methods mentioned above.
+In Section 5, Comparison experiments among different distortion measurements and among different steganographic schemes are reported.
+Inspired by LBP, local texture pattern (LTP) is developed to describe the texture of binary image.
+However, if we flip too many pixels continuously, it will destroy the texture and bring great distortion of a binary image.
+Instead of dividing image into blocks, we think that proper design of distortion map can also avoid flipping too many pixels continuously.
+We think that if the smoothness of images is improved, the quality of images we generate can be also effectively improved.
+More specifically, when looking into the image, for example Fig. 2(a) the change of the center pixels is so abrupt, which makes the shape of the small block totally change and damage the connectivity of pixels.
+However, for Fig. 2(b), the change of center pixels does not make big change of its shape but presever the connectivity.
+Theoretically, the basic distortion may have the ability to avoid this situation, which means that it will measure shape like Fig. 2(b) as a high value.
+Fig. 3 shows the comparison of flipping 800 pixels, which have the lowest distortion values, of an image according to the basic distortion measurement in Section 2 and the joint distortion measurement in this section.
+For example, the rabbit's ear is not quite smooth in the Fig. 3(a) compared to Fig. 3 (b) which generated by joint distortion measurement.
+Different from the previous work, we use the whole image as our massage carrier, which is free from the selection of suitable area.
+In fact, in the previous work, one of important reasons of selecting area to construct message carrier is in order to get rid of some area that may be not suitable to embed messages.
+The datasets used is BIVC (Binary Images comprised of Various Contents) [9] which consists of 5000 binary images with size 256  256 varied from cartoons, CAD graphs, handwritings, textures, documents and masks.
+It demonstrates that the joint distortion measurement brings big benefit to the security of our method.
+As part of its role in ensuring effective investment of taxpayer resources, NIGMS conducted an evaluation of its SBIR/STTR grants since inception of the program.
+The overarching mission of the SBIR/STTR programs is "to support scientific excellence and technological innovation through the investment of federal research funds in critical American priorities to build a strong national economy."
+Of the 27 institutes and centers that make up the NIH, NIGMS has the fourth-largest SBIR/STTR grant program (NIGMS does not fund SBIR/STTR contracts) ([dataset] National Institutes of Health, 2017).
+The size of the set-asides used to fund the SBIR/STTR programs has grown with each Congressional reauthorization of the programs.
+What began in 1983 as a small $639,000 program at NIGMS had increased to become a major $82.5 million investment by the Institute by 2017.
+From the programs' inception through fiscal year 2017, NIGMS SBIR/STTR funding totaled more than $1 billion.
+The primary source of such information has been surveys of past recipients of SBIR/STTR funding, which in most cases had very low response rates (Onken, Aragon, & Calcagno, 2019; National Institutes of Health, Office of Extramural Research, 2003).
+In this paper, instead of surveys we rely on existing databases as the primary source of information to examine the outcomes of NIGMS SBIR/STTR funding.
+Each of these indicators is described in more detail in section 2.0, and comparisons to other SBIR/STTR and small business data are present in section 3.0.2.
+Previous research has shown patent activity to be an adequate surrogate for more nuanced measures of innovation, and patents are frequently a good predictor of technological and economic performance measured in other ways.
+While the number of forward citations a patent receives has been used in many previous studies to measure economic value or an invention's impact, several investigators have noted the limitations of this measure.
+The merger or acquisition of a former grantee also is an indication that the firm was successful in developing intellectual property or products of value.
+Crunchbase is a crowd-sourced service that provides information on companies, investments, industry trends, and news about public and private companies.
+Text mining of the Government Interests section of awarded patents identified 299 patents citing NIGMS SBIR/STTR grant support.
+There are few such studies --  mostly singlesector studies or reports by industrial associations and estimates vary greatly by technology field.
+For all small businesses (regardless of technology sector), R&D spending per patent was $4.5 million.
+When these duplicates were removed, there were 3776 unique patents that cited one or more SBIR/STTR supported patents, resulting in an average of 11 unique downstream patents for each SBIR/STTR patent.
+Status was available for 1160 firms (97 percent) in at least one of these data sources, and status was available from at least two sources for 900 firms (75 percent).
+Survival curves of active firms and those active, acquired, or merged with another firm, are shown in Fig. 7 and compared to a survival curve of all small businesses in the U.S. provided by the SBA.
+Additional data from the Bureau of Labor Statistics suggest that survival in the professional, scientific, and technical services industry does not differ markedly from the survival rate of all private firms (Bureau of Labor Statistics, 2017).
+The results of this study included several measures of innovation, commercialization, and survival of businesses that were recipients of funding from NIGMS.
+The use of extant data allows for full coverage of all firms, but similarly suffers from missing data.
+Our approach to identifying patents is a more conservative one, designed to ensure that the attribution to NIGMS funding occurs only when NIGMS has been directly acknowledged by the inventor(s).
+In addition to patent-related metrics, a firm's transition from Phase I to Phase II SBIR/STTR funding was considered as a proxy for both survival and the ability of a firm to further commercialization efforts.
+These indicators, while not direct evidence of commercialization of technologies in the marketplace, point to the fact that the NIGMS SBIR/ STTR program has been successful in developing the commercial potential for the technologies supported by the grants.
+As a result, establishing firm status requires external sources, and missing data in these sources can be the result of a firm being acquired, shuttered, or simply not being easily found.
+Such surveys are costly to administer, and response rates have typically been very low, making non-response bias a potential threat to the validity of those results.
+In this setting, we investigate what effective mechanism can be utilized to motivate the supplier and the e-tailer to share their information and also eliminate information distortion simultaneously, and how the e-tailer's return policy impacts the value of information sharing.
+However, the cooperative wholesale price with profit sharing is an effective mechanism to be utilized to motivate the supplier and the e-tailer to share their information truthfully and create a win-win solution.
+As online shopping becomes more commonplace, the return policy is a critical part of doing business in the market today.
+For example, sellers delivered the wrong product, the products turned out to be different from what was described, the product is defective or became damaged during shipping, the risk (e.g. performance risk, financial risk, and social risk) of keeping the product is perceived to be high, or the consumers change their minds after buying.
+However, product returns also increase monetary costs for companies.
+However, accurate demand information is essential to firm performance since it contributes to higher firm profit (Taylor & Xiao 2010).
+Hence, information accuracy about product demand becomes critically important to firms.
+Industries without information relating to market conditions would have firms behave in a trial and error process.
+As an effective mechanism to improve information accuracy, information collaboration and sharing between different firms have been recognized as a strategic part of senior managers' agendas for improving firm performance (Willams and Moore, 2007).
+When information sharing arrangements are implemented, different signals can be pooled to yield more accurate information.
+It has been acknowledged that accurate information helps firms improve the decision-making, thus eliminating the need for a costly trial and error process; this leads to higher profitability (Taylor & Xiao, 2010).
+For example, Amazon benefits from sharing its information with suppliers about the product sales, product availability, and order processing (Chopra & Meindl, 2001).
+However, if a cooperative wholesale price with profit sharing mechanism is employed, both the supplier and the e-tailer would always like to share their information truthfully and thus a Pareto result can be achieved.
+The importance of return policy on the value of information sharing is studied in Section 5.
+For example, Marvel and Peck (1995) investigated retail price and return policy for firms and illustrated that an offered return policy increases a product's retail price.
+Emmons and Gilbert (1998) studied how uncertain demand is in relation to return policies and illustrated that uncertain demand may lead to higher retail price and that both the supplier and the retailer can profit from a generous return policy that the supplier offered.
+Yao et al. (2005) found that the supplier's return policy impacts the product price, order quantity, and profit reallocation in a supplier - two retailer supply chain.
+Wood (2001) investigated the effect of a retailer's return policy on an online consumer's purchase decision, and found that a generous return policy motivates a consumer to place an online order.
+Lee et al. (2000) revealed that a two-level supply chain can benefit from information sharing through reduced inventory and cost.
+Guo and Iyer (2010) showed that a voluntary sharing mechanism motivates the supplier to acquire more information about consumer preferences and demands.
+Yan (2010) used an analytical model to illustrate that the supplier and the e-tailer can achieve a Pareto result through the strategies of cooperative advertising and strategic alliance.
+Yan and Cao (2017) employed analytical and empirical models to show that revenue sharing can help all supply chain players achieve a win-win situation when the product return uncertainty is considered.
+To the best of our knowledge, our paper is the first one to consider the online product demand uncertainty and the e-tailer's full return policy simultaneously in the supplier  -  e-tailer supply chain to study the strategic value of information sharing in the extant literature.
+Further, our research also is the first one to propose how a cooperative wholesale price with profit sharing mechanism can be utilized not only as an incentive mechanism to motivate the supplier and the e-tailer to share their private information voluntarily, but also to help the supplier and the e-tailer eliminate any possible information distortion while they are sharing their information.
+Thus the consumer's consumption value of the product when purchased through online is v(1 − g)(q = kd).
+A generous return policy provides consumers less risks to buy (i.e. consumers can receive full refund from product returns due to wrong product, defective product, changing mind, higher price, damaged product during shipping, and others) and thus consumers would have stronger motivation to purchase this product.
+In other words, a generous return policy increases demand but higher retail price decreases the demand.
+One might anticipate that the greater the value of b, the more beneficial the return policy and thus the more the consumers are willing to buy.
+Then the e-tailer (follower) sets the optimal retail price and return policy to maximize its profit, based on its forecast and the supplier's wholesale price.
+1) The wholesale price decreases with the product returns but the retail price would not be impacted by the product returns.
+The reason is that if the retail price increases with the product turns, fewer consumers would like to buy the product due to higher price.
+Doing so would make the consumers realize that the perceived cost of returning the purchased product is high, and thus it is not beneficial to perform fraudulent returns.
+When the full return policy is offered to consumers, consumers have least risk to buy from online and thus they have strong motivation to buy.
+Therefore, the important managerial implication is that although the full return policy is a very generous return policy and could bring high return cost to the e-tailer, it is a valuable strategy to be utilized to help improve the performances of both the supplier and the e-tailer and create a win-win situation for all parties.
+There is an incentive for both the supplier and the e-tailer to have full information sharing, since full information sharing brings the most accurate information to each player (Vives, 1984).
+However, is information sharing always profitable?
+we thus investigate if it is beneficial for both the supplier and the e-tailer to implement an information sharing arrangement through a two-part tariff mechanism, since information sharing among supply chain players has been recognized as a strategic approach to help improve supply chain performance (Willams and Moore, 2007).
+When a full return policy is offered to consumers and the supplier utilizes a two-part tariff mechanism to seek sharing the e-tailer's private information about online product demand, both the supplier and the e-tailer agree to implement an information sharing arrangement only if the forecasted online product demand from the supplier is greater than the forecasted online product demand from the e-tailer.
+However, if the forecasted online product demand from the supplier is smaller and the forecasted online product demand from the e-tailer is greater, the supplier would charge the e-tailer a higher wholesale price when the supplier and the e-tailer share their information; and this may lead to higher retail price and thus decreased market demand.
+Thus the supplier always benefits from information sharing.
+In addition, the whole supply chain profit decreases when the forecasted online product demand from the supplier is smaller than the forecasted online product demand from the e-tailer.
+Otherwise, information sharing equilibrium cannot be reached.
+Knowing that the e-tailer would like to share its information with the supplier only if the forecasted online product demand from the etailer is lower than the forecasted online product demand from the supplier, the supplier may have a strong motivation to overstate its forecast information rather than reveal it to the e-tailer truthfully.
+The logic is that when the supplier overstates its forecast information and thus shares this information with the e-tailer, the increased profit due to information sharing will offset the profit loss due to a lower charged wholesale price.
+However, as seen in real businesses, definite benefits from information sharing exist for all parties in the supply chain management.
+Hence, the important question is if there is any effective mechanism(s) which can be utilized by the supplier and the e-tailer to implement an information sharing arrangement, so that both of them can share their information voluntarily all the time.
+In the meantime, any possible information distortion also can be eliminated and thus truthful information can be shared.
+In other words, the supplier and the e-tailer can utilize a cooperative wholesale price with profit sharing as an effective mechanism to share their information.
+Prior research (e.g. Amrouche and Yan, 2015; Ingene and Parry, 1995) shows that cooperative wholesale price effectively coordinates channel distributions in a supplier - retailer supply chain.
+However, it has not been explored in the extant literature whether the cooperative wholesale price can be utilized as an effective mechanism to help motivate the supply chain players to share their information and in the meantime, eliminate the information distortion in a supplier - e-tailer supply chain.
+Furthermore, we also examine how the cooperative wholesale price influences the profits of both the supplier and the e-tailer through comparing their profits under different scenarios.
+Hence, the supplier also needs to ask the e-tailer to implement another coordination mechanism - profit sharing - while employing cooperative wholesale price as a coordination mechanism to implement information sharing arrangement.
+Hence, they have a strong motivation to share their information voluntarily all the time.
+The rationale is that when the supplier uses the two-part tariff mechanism to seek sharing the e-tailer's private information, each party behaves independently to maximize their own profits.
+However, when the supplier utilizes the cooperative wholesale price mechanism to seek sharing the e-tailer's private information, the supplier cooperates with the e-tailer to maximize the whole supply chain profit and thus lead to a higher profit for the whole supply chain.
+When the cooperative wholesale price mechanism generates a higher profit for the whole supply chain, each of supply chain players would benefit from this increased profit through profit sharing.
+The reason is that the offered full return policy impacts online product demand, thus the supplier and the etailer need to obtain more accurate information about online product demand (through information sharing) to make optimal decisions.
+The important managerial implication is that when the e-tailer sells products via online and offers a full return policy to consumers, implementing an information sharing arrangement should become an important strategic consideration for both the supplier and the e-tailer since it is a vital approach to help enhance the performances of both supply chain players.
+Based on this background, we examine how information sharing equilibrium can be reached, how information distortion can be eliminated, and how the e-tailer's full return policy impacts the motivations of both the supplier and the e-tailer to engage in information sharing.
+Our results show that when a two-part tariff mechanism is implemented, both the supplier and the e-tailer would share their information voluntarily only if the forecasted online product demand from the supplier is greater than the forecasted online product demand from the e-tailer.
+However, if a cooperative wholesale price with profit sharing mechanism is employed, both the supplier and the e-tailer would always like to share their information truthfully and thus a Pareto result can be achieved.
+In addition, our results also indicate that both the supplier and the e-tailer have a stronger motivation to engage in information sharing when a return policy is offered.
+Our research investigates important business issues and provides valuable findings and managerial implications for firms.
+As a result, accurate information about online product demand plays a critical role in firms' performances.
+Our paper thus addresses the strategic importance of information sharing about online product demand in the supplier-e-tailer supply chain where the offered full return policy becomes a core and mandatory factor in stimulating online sales.
+Nowadays e-commerce is becoming increasingly popular due to new technologies and fast shipping methods, information sharing between the supply chain players has been employed widely.
+Information sharing helps firms make informed decisions and thus eliminate the need for a costly trial and error process.
+We thus propose that cooperative wholesale price with profit sharing mechanism can be utilized to motivate the supplier and the e-tailer to implement information sharing and collaboration and achieve a Pareto result.
+In this paper, our analysis is based on an analytical model.
+The concept of well-being at work is also receiving attention.
+Key components of well-being relate to being valued, having opportunities to engage in decision-making and being able to work productively and creatively.
+Working environments may also pose risks for mental well-being.
+A small random sample of 20 subjects from the city will be checked for infection.
+You should choose an analysis that answers your specific research questions.
+Bayesian and frequentist approaches have very different philosophies about what is considered fixed and, therefore, have very different interpretations of the results.
+The frequentist approach assumes that the observed data are a repeatable random sample and that parameters are unknown but fixed and constant across the repeated samples.
+This assumption may not always be feasible.
+On the other hand, Bayesian analysis provides a more robust estimation approach by using not only the data at hand but also some existing information or knowledge about model parameters.
+The exact sampling distributions are rarely known and are often approximated by a large-sample normal distribution.
+Bayesian inference is based on the posterior distribution of the parameters and provides summaries of this distribution including posterior means and their MCMC standard errors (MCSE) as well as credible intervals.
+Although exact posterior distributions are known only in a number of cases, general posterior distributions can be estimated via, for example, Markov chain Monte Carlo (MCMC) sampling without any large-sample approximation.
+For example, the interpretation of a 95% confidence interval is that if we repeat the same experiment many times and compute confidence intervals for each experiment, then 95% of those intervals will contain the true value of the parameter.
+The posterior model describes the probability distribution of all model parameters conditional on the observed data and some prior knowledge.
+If the integration cannot be performed analytically to obtain a closed-form solution, sampling techniques such as Monte Carlo integration and MCMC and numerical integration are commonly used.
+The idea behind posterior predictive checking is the comparison of various aspects of the distribution of the observed data with those of the replicated data.
+In an interval-hypothesis testing, the probability that a parameter or a set of parameters belongs to a particular interval or intervals is computed.
+Most of these methods such as MCMC are stochastic by nature and do not comply with the natural expectation from a user of obtaining deterministic results.
+The flexibility of choosing the prior freely is one of the main controversial issues associated with Bayesian analysis and the reason why some practitioners view the latter as subjective.
+Their choice is desirable from technical and computational standpoints but may not necessarily provide a realistic representation of the model parameters.
+Computational approaches for calculating HPD are described in Chen and Shao (1999) and Eberly and Casella (2003).
+Rejection sampling techniques serve as basic tools for generating samples from a general probability distribution.
+When the acceptance rate is close to 0, then most of the proposals are rejected, which means that the chain failed to explore regions of appreciable posterior probability.
+The other extreme is when the acceptance probability is close to 1, in which case the chain stays in a small region and fails to explore the whole posterior domain.
+An efficient MCMC has an acceptance rate that is neither too small nor too large and also has small autocorrelation.
+All MCMC methods share some limitations and potential problems.
+Bayesian inference based on an MCMC sample is valid only if the Markov chain has converged and the sample is drawn from the desired posterior distribution.
+Below we show autocorrelation plots for the same four parameters using the same MCMC samples.
+Bayesian analysis is a statistical procedure that answers research questions by expressing uncertainty about unknown parameters using probabilities.
+The prior distribution is constructed based on the prior (before observing the data) scientific knowledge and results from previous studies.
+Many posterior distributions do not have a closed form and must be simulated using MCMC methods such as MH methods or the Gibbs method or sometimes their combination.
+He was admitted to the Royal Society in 1742 and never published thereafter.
+Markov attended St. Petersburg University, where he studied under Pafnuty Chebyshev and later joined the physicomathematical faculty.
+A large and influential body of work followed, including applications of the weak law of large numbers and what are now known as Markov processes and Markov chains.
+In 1908, he resigned from his teaching position in response to a government requirement that professors report on students' efforts to organize protests in the wake of the student riots earlier that year.
+Upon graduation, he began working for the Italian Central Statistical Institute and later moved to Trieste to work as an actuary.
+You can use bayestest model to test hypotheses by comparing posterior probabilities of models.
+Confidence intervals are popular alternatives to p-values that eliminate some of the p-value shortcomings.
+An acceptance rate of 0.14 in our example means that 14% out of 10,000 proposal parameter values were accepted by the algorithm.
+Efficiencies below 1% may be a source of concern.
+Increasing the MCMC sample size should decrease these numbers.
+The strength is that if we have reliable prior knowledge about the distribution of a parameter, incorporating this in our model will improve results and potentially make certain analysis that would not be possible to perform in the frequentist domain feasible.
+The weakness is that a strong incorrect prior may lead to results that are not supported by the observed data.
+bayesgraph provides a variety of graphs.
+Do not expect to see values close to the MCMC sample size with the MH algorithm, but values below 1% of the MCMC sample size are certainly red flags.
+This option may be repeated.
+Model parameters with the same prior specifications are placed in a separate block.
+Model parameters may be scalars or matrices, but both types may not be combined in one prior statement.
+You must specify at least two chains.
+The table includes six columns and reports the following statistics using the MCMC simulation results: posterior mean, posterior standard deviation, MCMC standard error or MCSE, posterior median, and credible intervals.
+If feasible initial values are not found after k attempts, an error will be issued.
+In this case, if the specified initial vector does not correspond to a feasible state, an error will be issued.
+Also see command-specific entries for the naming convention of additional parameters such as cutpoints with ordinal models or overdispersion parameters with negative binomial models.
+The reason for this choice is that the cutpoint parameters are sensitive to the range of the outcome variables, which is usually unknown a priori.
+We can fit this model using the regress command.
+Because the bayes prefix is simulation based, we set a random-number seed to get reproducible results.
+This may not always be true.
+Although these predictors cannot be identified using the likelihood alone, they can be identified, potentially, in a posterior model with an informative prior.
+Multilevel models introduce effects at different levels of hierarchy such as hospital effects and doctor-nested-within-hospital effects, which are often high-dimensional.
+The results of a scenario-based survey in the context of academic advisement suggest that students vary in their attribution of failures to themselves and to the advisor based on their propensity to participate.
+In addition to delineating the theoretical significance of the findings, the paper provides guidance to educators in achieving higher student satisfaction, which in turn can lead to greater levels of retention and on-time graduation.
+While there is overall agreement that students are participants in the co-creation of their educational experiences (e.g., Gasiewski et al. 2012; Graeff 2010; Kember et al. 2007; Meyer 2012; Ross Wooldridge 2008), the effect of student participation on satisfaction continues to be an under-developed area within higher education literature.
+Even though important inroads have been made in understanding participation, research on co-creation is marked with a considerable number of mixed and contradictory findings, which range from suggesting a positive link, no link, or even a negative link between participation and satisfaction.
+On the one hand, some studies find evidence of a self-serving bias, which attenuates the positive, and accentuates the negative, effects of participation on satisfaction.
+There are indications in prior research that student propensity to participate (SPTP) influences the relationship between participation and satisfaction as well as the strength and locus of attribution.
+Elliott and Shin (2002) suggest that three of thirteen highly significant variables that impact satisfaction with college performance are advisor knowledge, approachability, and availability.
+The former view entails the advisor providing information and telling students what to do with very little participation of their own.
+Similarly, Clayson and Haley (2005) advocate the view of students as partners rather than consumers willing to take responsibility for their education.
+Moreover, Gremler and McCollough (2002) find student overall course evaluations to depend more on their evaluation of the instructor than themselves.
+Although the relationship between student participation and satisfaction has not been studied empirically in higher education literature, the preceding paragraphs comprise a case for such exploration.
+To begin this exploration, we look to research on participation behavior in other literatures such as psychology and marketing, where satisfaction is viewed as both an affective and cognitive evaluation of the service.
+On the contrary, Roter (1977) finds that patients who participate more in their care (i.e., by asking more direct questions) are less satisfied than patients who participate less.
+The self-serving bias suggests that the individual has the tendency to assert more responsibility than a partner for a successful outcome and less responsibility for an unsuccessful one (Campbell and Sedikides 1999).
+Bendapudi and Leone (2003) show that the self-serving bias has important implications for satisfaction with a service outcome.
+Early literature suggests that participation may differ not only across service industries but also across consumers.
+Those designated as high SPTP are students characterized by a strong tendency to participate in their educational experiences, whereas those designated as low-SPTP are students whose such tendencies are significantly lower or minimal.
+As required participation increases, relative to low-SPTP consumers, those with high levels of SPTP will likely derive greater enjoyment from participation and relationship building with a service employee (relational value), and by extension greater service quality, customization, and increased control.
+Psychological reactance theory suggests that limited freedom results in frustration and hostile attitudes towards the origin of the limitation, and thus the blame goes to the service provider.
+This study focuses on academic advisement as a distinct service episode/encounter that may require varying degrees of participation from the student.
+We generated items based on the actor-observer asymmetry (Jones and Nisbett 1972), which is a useful guide for differentiating between students with different degrees of SPTP.
+The survey was administered to 78 undergraduate students attending a public university in the Southwest United States.
+The sample consisted of 64.4 % males and 35.6 % females.
+81.1 % of the respondents were single.
+The highest completed educational degree was a high school diploma with 88.8 %.
+The majority of the individuals (71.9 %) earned below $40,000 annually.
+In an EGA respondents would be selected based on having very high or very low scores on SPTP (Preacher et al. 2005).
+However, EGA also implies that data are only collected from students that are very low in SPTP and from those that are high in SPTP to determine its relationship with attribution.
+According to Cohen (1983) this approach provides the best result in dichotomizing continuous variables that are normally distributed, which is the case for SPTP.
+Standardizing the indicators helps reduce multicollinearity issues by lowering the correlations between product indicators and their individual components.
+Table 4 reports the standardized path coefficients and t-values for the tested models.
+Specifically, satisfaction with academic advising is of great importance as it increases on-time graduation rates.
+While there is general consensus that students take a participative role in their educational experience, the relationship between student participation and satisfaction has not been examined empirically in higher education literature.
+The former compels the student to blame the provider (e.g., faculty advisor) for negative outcomes, which will potentially lead to lower levels of satisfaction (e.g., Bendapudi and Leone 2003).
+To better understand under which circumstances each of these biases might be salient, this study introduces SPTP as a student characteristic.
+On the contrary, this study indicates that educators should strive to account for individual differences in providing services to students.
+The findings in this study suggest that universities should not only strive to utilize either prescriptive or developmental advising approaches but also take into consideration that certain students will favor one over the other.
+Advisors need to be equipped with tools, which allow them to determine the individual advising needs of students after a few initial meetings.
+Despite diminishing resources, the number of centralized advising units has been growing in academic institutions and increasingly includes professional non-faculty staff members.
+You set up an appointment and meet with your designated advisor to find an elective course that matches your interests.
+After listening to you, the advisor reviews your academic record and then looks for possible electives in the course catalogue.
+The advisor further reviews the descriptions of several courses and evaluates their content in respect to your interests.
+Psychological implications of customer participation in co-production.
+Customer contributions and roles in service delivery.
+David Ricardo developed a dynamic model of corn and velvet production, with corn produced by land and labor and velvet produced with labor alone.
+Ricardo showed that in autarky the gradual expansion of the wage fund and growth of velvet production would lower its relative price, until a long-run equilibrium was reached.
+In the context of trade reform it allows us to estimate the extent to which trade liberalization has led to a reduction in markups by firms facing import competition.
+She also finds that reduced tariffs are associated with lower price-cost ratios, but that result is only significant at the 15% level.
+With the initial production possibility frontier (PPF), the economy produces at point B and consumes at point C.
+What is more surprising is that immiserizing growth can occur even when foreign demand is  inelastic, but this requires that condition (b) hold, i.e. that growth reduces the output of the importable good.
+Industry prices were treated as equal across countries (due to free trade), so it was  the technology parameters and factor endowments that appeared in the GDP function.
+The price of the final good at each point in time is P(t).
+We have not yet determined whether trade will increase the growth rate of the large country, or slow down the growth rate of the small country.
+They argue that growth in the former group is explained by openness and has particularly benefited the poor.
+Findlay (1996) argues that this framework may well be the most relevant one to analyze the growth experience of developing countries, and these articles are recommended for further reading.
+He finds that there is no significant relationship between TFP growth and  R&D expenditures of partner countries.
+Conversely, there is no evidence that American firms benefit from the R&D activities of the Japanese.
+We show that this measure of product variety is correlated with productivity growth.
+An essential assumption was that the fixed cost of inventing a new input is inversely related to the number of inputs already created.
+Untoward sequelae of orbital fractures and periorbital injuries include serious injuries to the optic nerve, the globe, or both.
+Early identification of the signs and symptoms of injuries to the globe and the optic nerve will lead to prompt emergency interventions that can preserve vision.
+Therefore, patients with suspected Ocular injury should be reassessed at regular intervals, especially if they are unconscious and unable to communicate the fact that their symptoms are worsening.
+Injury to the optic nerve may be caused by many factors, including compression caused by retrobulbar hematoma or hemorrhage, traumatic optic neuropathy, and direct injuries.
+Microbial strain typing is increasingly important in routine clinical microbiology laboratories as a method to track hospital-acquired infections.
+this chapter focuses on one particular method used for typing of bacteria and fungi: repetitive sequence - based PCR (rep-PCR).
+A number of valuable reviews are available for more in-depth discussion of other technologies.
+Additionally, we describe a comparison of the technologies, current applications in clinical microbiology laboratories, and future potential of rep-PCR as a routine clinical test.
+Strain typing is an extremely useful tool in tracking the spread of nosocomial infections.
+In addition to tracking the source of hospital-associated infections, strain typing is useful for studying community-acquired infections, discriminating between recurrent infections caused by new exposure or by colonization, and investigations to determine the presence of single source; multiple-site infections or other environmental source.
+Finally, strain typing can be a useful tool to identify and pinpoint laboratory contamination.
+The fragment separation reveals a band indicating the quantity and size of each fragment, and the combined bands give a unique fingerprint pattern of the repetitive elements in the organism.
+First reported in 1991, manual rep-PCR fingerprint patterns became an established approach for subspecies classification and strain delineation of bacteria.
+The chromosomal locations of ERIC can differ in different species and have been demonstrated to be conserved throughout the eubacterial kingdom.
+The first commercialized rep-PCR kit (manual), the rep-PRO DNA Fingerprinting Kit, provided primers targeted to various repetitive elements that required each user to optimize the assay for their organism of interest.
+Interpretation was either performed visually or using gel documentation analysis of scanned gel images.
+During amplification, the specific rep-PCR primers found in each kit bind multiple repetitive DNA sequences that generate amplicons of different sizes.
+Instead of using more traditional gel electrophoresis, amplicons are size fractionated using a disposable microfluidics chip.
+The dendrogram is a tree-like diagram that uses branching and branch length to indicate average percentages of similarities between samples and sample clusters that show like fingerprints.
+Each dendrogram can include up to four demographic fields (such as species, strain, location, and date), one of which can be color-coded to reveal sample clustering.
+The similarity matrix also allows an overlay of any two sample graphs to easily be generated for direct examination of the fingerprint pattern differences.
+Current molecular typing methodologies, including manual rep-PCR, have limitations.
+All manufactured kits are quality controlled and include positive and negative controls.
+Additionally, installation of the system includes on-site training, a certification panel for technical performance, and qualification for laboratory thermal cyclers.
+Although, MLST can be used as a non - culturebased typing method, it can be labor intensive and costly.
+Although standardized guidelines have been applied to PFGE (Tenover et al., 1995), this method is often time-consuming and difficult because it depends on visual analysis of the fingerprints.
+However, an interpretation guide is provided and the software provides a variety of analysis tools to assist the user.
+The Centers for Disease Control and Prevention (CDC) estimates that 2 million patients acquire nosocomial infections each year, and 90,000 of those patients die as a result of their infections.
+Although slightly less discriminating than PFGE, the interpretation is easier.
+As seen with other organisms, the combination of techniques increases knowledge of specific genotypes.
+Candida has become one of the most common blood isolates, as well as one of the leading causes of nosocomial bloodstream infections.
+The use of a single method may not be optimal, and a combination of typing techniques is often required to provide a comprehensive assessment of the epidemiology of candidiasis.
+Automated rep-PCR was recently used to demonstrate discrimination of Fusarium species and strains.
+Additionally, Zygomycetes are increasingly reported as causing lethal infections (Walsh and Groll, 1999).
+Automated rep-PCR also successfully grouped multiple Zygomycetes species.
+In order to understand the transmission and source of MRSA outbreaks, strain typing must be used to compare community-acquired and nosocomial pathogens at the genomic level (Stemper et al., 2004; Hanssen et al., 2005).
+Reporting culture results and isolating colonized patients, as suggested by some guidelines, would have falsely suggested the success of such infection-control policies.
+Each method has advantages and disadvantages; therefore, no single method has emerged as ideal for investigation of IA case clustering or routine surveillance.
+One problem that the clinical laboratory can address for its own purposes of quality control is laboratory contamination.
+Probiotics are generally safe and infections associated with probiotic strains of lactobacilli are extremely rare, but complications of probiotic use can occur.
+Rep-PCR DNA fingerprinting analysis showed that the Lactobacillus strain isolated from blood samples was indistinguishable from the probiotic strain ingested by the patients.
+αi is treated as random variable with specified probability distribution (usually normal, homoscedastic and independent of all measured variables) in case of random-effects model, whereas set of fixed parameters for fixed-effects model.
+Multivariate t-distribution has been utilized as a natural extension of normal distribution in literature.
+The ratio has consistently risen over the years for India.
+Afterwards, it has risen to 4.9 per cent in June 2015.
+Negative coefficient of ROA implies more profitability leading to reduction in stress that essentially provides room for banks to write-off bad assets through appropriations and retained earnings.
+It points to vicious feedback mechanism wherein high level of bad assets not only leads to piling up of bad assets but is also harbinger of crisis.
+Higher inflation is leading to weakening of debt repayment capacity leading to more defaults and higher bad loans for banks.
+Growth in advances is leading to reduction in stressed assets both in Models 1 and 2.
+While high growth rate is leading to reduction in stressed assets, high inflation is exacerbating it in both models.
+Next, we scrutinize relation between ownership and problem loans.
+However, between PVT and FB group, it is not clear which bank group has least NPL figures.
+However, again the difference is not significant between PVT and FB groups.
+Along with standard measures of asset quality, an additional variable is constructed that includes restructured advances, which portrays actual pressure on banks' balance sheet due to bad assets.
+Findings include strong legacy issue of bad assets due to piling up of bad loans.
+In this article, we aim to review the available software packages for Bayesian multilevel modeling and therefore hope to promote the use of these packages in scientific research.
+Then, we provide recommendations to practical users for the choice of difference packages and discuss directions for future development.
+The results were based on a collection of 92 applied studies between 2012 and 2016.
+About 26% of the studies developed their own programs to perform the analyses.
+The data in the table also suggested that Matlab programs were the major tools used in neuroscience studies.
+Each alternative of BUGS was developed with aims to improve the Bayesian algorithms and the computing speed, either by optimizing the algorithms themselves or implementing the algorithms in a faster language (see Table 2 for details).
+JAGS implements the BUGS algorithms with C++ language to improve the computing speed.
+The data are based on a collection of 92 applied studies published between 2012 and 2016.
+In a similar way, R-INLA adopts a non-MCMC algorithm to approximate Bayesian inference, the INLA approach.
+In general, the INLA approach can provide good or even exact approximation while reducing computational cost substantially.
+In general, the general-purpose Bayesian software packages allow users to specify "unlimited" types of multilevel models and to flexibly customize the parameter priors of various distributions.
+Although R-INLA supports a large number of models (e.g., latent models including several spatial models) and allows specifying more complex models, R-INLA is not as flexible as BUGS or other MCMC software packages in using complex hierarchical prior structures or handling models with a large number of hyper-parameters.
+First, many of these software packages do not provide default model templates or prior types (as shown in Table 3).
+Importantly, all the software packages in this category have outstanding documentations and good maintenance to aid the learning for new users.
+For example, brms that is based on Stan is more computationally efficient than MCMCglmm as shown in a simulation study.
+Most of these software packages only support a limited number of models.
+R2BayesX can handle generalized additive mixed models with a large number of parameters and large data sets (e.g., more than 1000 parameters and 200,000 observations).
+Different from the software packages in category A, the software packages in category B are relatively easy to use for applied researchers (see Table 3).
+First, all these software packages provide default model templates or routine functions for the convenience of users.
+Some of these software packages employ lme4 or lme4-like formulas to specify models, which is definitely an advantage for users with experience using lme4, the most widely used R package for multilevel modeling.
+Third, most packages use default Bayesian algorithms that usually are optimized for certain types of models.
+Most of the software packages have very good documentations, but they are not as good as packages in the other two categories in terms of updates and maintenance.
+Instead, users should choose a program based on their research purpose.
+For example, if a user is interested in developing new multilevel models, learning how to use a general-purpose program, such as BUGS or Stan in category A might be beneficial in the long term.
+This is because this type of programs allows the specification of new and innovative models beyond the existing ones.
+On the other hand, if the purpose is to conduct a particular kind of multilevel analysis, a program in category B or C might be a better choice.
+In addition, many of the programs are R packages.
+If one is already familiar with R, an R package for multilevel modeling is a natural choice.
+We hope this review can help users choose the right packages for their research.
+The "shrinkage" posterior distributions of the study-specific parameters θi are also accessible from the bayesmeta() output.
+For example, one can illustrate the first study's (i = 1) input data (y1, σ1) and shrinkage estimate (θ1) in a single plot using the following code.
+This mixture distribution can again be evaluated using the direct algorithm; this approach is implemented in the normalmixture() function.
+It may also make sense to consider empirical information for the setup of an informative heterogeneity prior, for example, when other evidence is extremely sparse.
+In medical or psychological contexts, some evidence for certain types of endpoints may be found
+For our present example (a log-OR endpoint whose definition may be categorized as"surgical / device related success / failure", and where the comparison is between pharmacological treatment and control), we can derive the prior simply.
+The complete list of possible options is described in detail in the online documentation.
+Since randomized studies are usually considered as evidence of higher quality, now suppose one was interested in combining the randomized studies only.
+Based on these two studies only, we can now inspect e.g. the estimate of the overall effect σ comparing to the previous analysis (Figure 2), the (absolute) estimate is slightly larger, but the credible interval is wider.
+The actualized value in the present data set (0.9975, vertical red line) is situated in the upper tail of the distribution of replicated statistics values, and the remaining tail area (horizontal green line) eventually defines the p-value.
+One may then argue that an overestimation of heterogeneity may be considered a conservative form of bias, so that, for example, among two exponential prior distributions the one with the larger expectation was "more conservative" in a certain sense.
+The aim of this section is to demonstrate that the bayesmeta implementation in fact yields consistent results.
+Sample sizes (k) here are varied between 2 and 20, and standard errors (σi) between 0.2 and 1.0.
+From the time of their introduction in early 1970's seismic attributes gone a long way and they became a aid for geoscientists for reservoir characterization and also as a tool for quality control.
+With the introduction of 3D seismic techniques and associated technologies and introduction of seismic sequence attributes, coherence technology in mid 1990's, and spectral decomposition in late 1990's has changed the seismic interpretation techniques and provided essential tools that were not available for geoscientists earlier.
+It has a low frequency appearance and only positive amplitudes.
+It is better to show continuities Sequence boundaries.
+In most of the seven reviewed concepts, the protection of the agricultural production system itself is postulated as a major aim.
+Goal-oriented concepts based on models for agronomy and management show a high potential to overcome these drawbacks and therefore represent a promising tool to bridge the gap between theory and practice of sustainability in agriculture.
+Since production of agricultural goods strongly depends on natural settings, sociopolitical and agro-technical conditions, standardisation of evaluation methods or management advice is considerably more restricted than, e.g. for industrial production processes.
+For instance, sustainability assessment has to evaluate extremely divergent parameters, like science-based, quantitative data (e.g. data measured in field experiments or model-based prognosis) and normative settings (like aspirations of farmers or society, political threshold values or goals of landscape protection) which are mainly qualitatively described and strongly depend on actual sociopolitical conditions.
+In addition to the above, the successful application and implementation of sustainable farming systems requires the following: transparent concepts offering clear recommendations for implementation; extremely flexible and dynamic strategies of assessment and implementation showing a high transferability to manifold systems.
+This approach allowed the identification of the potential and drawbacks of goal-oriented concepts and to point to future research needs.
+Even though goal-oriented concepts notably differ in theoretical focus and methodological elements, fundamental features may be deduced which are common in all concepts.
+In general, authors first outline their perception of sustainability in the field of agriculture by defining a case-specific sustainability definition as well as distinct aims and systems of concern.
+The temporal scale ranges from short-term aspects including several days or weeks up to long-term aspects covering some years and longer.
+These limits are determined either by estimation (e.g. resulting from expert interviews or referring to socio-political postulates for the reduction of emissions) or by scientific deduction (e.g. elaboration of critical loads/levels based on eco-toxicological experiments).
+Yet the study also reveals a positive relationship between investment size and financial professionals' decision-making effort.
+The current literature has not looked at these aspects of risk management, and no prior studies that we found use an experiment to consider the impact of ERM on individual decision making.
+We used a two-by-two experimental design with two RMP types (robust or ceremonial) and two financial risk levels (low or high) manipulated randomly between subjects.
+The company operates in a relatively robust industry, and its financial performance and position are comparable to average companies in the industry.
+The company's five-year historical net sales, net income, and total assets were derived from industry benchmark data.
+Participants were experienced financial professionals who accessed the instrument through a link sent to them in three separate email requests from IMA's director of research.
+We sent these email requests to IMA members who met the requisite experience and other selection criteria.
+Furthermore, they were told to assume that they report to the  controller and that the degree of success of their investment recommendation is considered in their performance evaluation and in determining their base pay adjustments and incentive pay.
+The board of directors has directed management to establish an organization-wide risk management program (i.e., an enterprise risk management (ERM) program) primarily to ensure that the Company is effectively managing its risks.
+SEC regulations mandate public company board members to disclose their risk oversight role.
+In addition, New York Stock Exchange (NYSE) standards require that the Company's audit committee discuss the firm's risk management process and major financial risk exposures.
+The full board and the audit committee have assumed an active role in providing risk oversight and have placed a high priority on giving attention to risk management.
+Management has appointed a Chief Risk Officer (CRO), who was previously employed as a CRO for a manufacturing company in a similar industry as the Company, to assume risk oversight responsibilities.
+The CRO, who has specialized risk management experience, meets with the CEO and the CFO to discuss the Company's risk exposures once each month.
+The audit committee also meets with the CRO each quarter to engage in substantive risk management discussions about key financial, operational, and reputational risks.
+The CRO's risk management recommendations are taken seriously and acted upon in a timely manner.
+The internal audit plan includes audits of the ERM program.
+The internal audit staff receives continuing professional education in risk management practices.
+Capital budgeting project investment decisions fall under the Company's ERM program.
+The CEO and CFO understand the board's intent of demonstrating compliance with regulations, and they do not support expending resources for an ERM program.
+The Controller ensures that the matter of "risk oversight" appears in the board minutes once each calendar year by including this topic on the agenda of the annual meeting with the audit committee related to internal controls.
+Next, participants were randomly assigned to one of the two financial risk levels (high or low) and provided information describing a possible new product introduction.
+The financial-risk variable is included in the study to assess whether the effects of RMP type vary based on the riskiness of the investment that participants were considering.
+Participants had significant risk management expertise, with most having more than 15 years of professional business experience and specialized career experience relevant to the case.
+Fifty-one participants (85%) had at least one professional accounting or finance certification.
+To examine our research question, we ran four different analyses of variance (ANOVA) models.
+Table 3 presents the ANOVA model for the investment decision.
+The overall model is not significant, nor is RMP type.
+Those in the robust RMP group had a mean of 40.64 compared to 39.63 in the ceremonial RMP group.
+We found what appear to be two "good news" results.
+First, a robust RMP caused the financial managers to feel more accountable to top managers for the risks related to the investment decision.
+Thus, a robust RMP appears to cause managers to think more carefully about their accountability to others for taking risk.
+For example, it could involve other key ERM corporate players as participants, such as board members, senior management, and auditors.
+In this work, we apply the facial recognition into an attendance checking system that uses faces of registered people to check their attendance.
+The core of the system is a deep facial recognition technique, which has four stages (e.g., removing motion-blur frames, detecting faces, removing non-frontal-view faces, and recognizing).
+Also, we boost the performance of the system by utilizing hardware resources of users' computers.
+With the rise of data-model, convolutional neural networks (CNN) achieve considerable accuracy in the number of computer vision tasks, especially face detection task.
+In most cases, businesses understand why they need to build smart products and even know what they want to create.
+First, time-to-market pressure only increases as customer expectations build and competition expands.
+A modern, flexible development environment, like the Jama Software platform and open API, allows engineers to thrive using their preferred approach.
+From smart wristwatches to even smarter washing machines, from jet engines that signal when they need maintenance to jackhammers that detect when their users are tired, physical products in nearly every industry are being digitized with software.
+These are among the findings of a new Harvard Business Review Analytic Services survey of 285 business and IT leaders across a wide range of industries and locations worldwide, all of whom work for organizations that have either begun to digitize physical products or are planning to do so soon.
+The survey findings indicate that far greater collaboration and communication are needed to bridge the gap between those who design the physical product and those who design the digital features.
+Frank says he expects these figures to rise in the next year or so as more organizations add software and services to their physical products.
+A large majority (80 percent) said implementing digital technologies has either somewhat or significantly added pressure to increase time to market for products and services.
+Even more (89 percent) expect that pressure to either significantly or somewhat increase in the future.
+Hardware and most software projects have long used "waterfall methodology," a sequential process with distinct steps, each of which must be completed before moving to the next.
+Hardware engineers and many software engineers have been trained to work this way.
+It's commonly used by developers of web, cloud, and mobile apps who need quick results that can be updated frequently.
+These developers start small, work fast, develop multiple modules simultaneously, and then build on them in a collaborative effort that produces results not in years but in mere weeks.
+Other top challenges of digitizing physical products include planning for diverse ecosystems, aligning traditional design methodologies with the more agile approaches required by digitization, hiring and training qualified staff, and managing and securing customer data.
+Many companies now provide the platform and APIs (application programming interfaces) that allow environments to interface with whatever is needed in the future.
+More than half (52 percent) the respondents say they've partnered with software companies and others to improve their ability to implement digital technologies.
+More than a third (37 percent) have adopted the new development methodologies.
+But the chips' software developers face no such limit; they can continue to add, subtract, and debug pretty much forever.
+In fact, deciding what data to collect, and for what purpose, should be among the first steps taken to design a digitized physical product.
+They need to get hardware and software engineers co-developing digitized physical products that are safe, secure, reliable, resilient, and able to protect privacy.
+But that's a major challenge, say more than half (54 percent) of the survey respondents.
+There, the company has access to a large pool of hardware and software engineers, a luxury most companies don't have.
+Getting these two types of engineers to work together can be the biggest hurdle of all.
+How to bring these two groups closer together?
+For example to detect adverse conditions, guide policy, shape strategy, and to explore new markets, products and services.
+In the rectangular boxes, the elements of Slaughter's original definition can be found, and the circles show the corporate departments that typically are expected to produce the outcomes.
+Slaughter's definition, we can conclude that strategic management can profit from future insights (i.e., the result of the interpretation of future-related information) to define future strategic directions; that corporate development and marketing can identify and explore new markets; that strategic controlling can identify future risks; and that innovation management can explore new products and services on the basis of these insights.
+There are three primary perspectives from which research on corporate foresight has been conducted (see Fig. 2.2).
+In 1980, Igor Ansoff presented an overview of the historic evolution of (strategic) management systems.
+Many scholars have used his concept in the field of future research, most of them using the term issue management.
+It was argued that only the top management is capable of triggering the appropriate responses when the discontinuous change affects the whole company or if it is a cross-divisional phenomenon
+Indeed, the research question on how top management scans for changes in the environment has been researched to a point where additional research would not be expected to produce much more knowledge.
+This led to the conclusion that  -  faced with discontinuous change  -  management is unable to accomplish an adequate adaptation in time.
+Following this line of argument, change in the economy as a whole occurs when firms are aware of changes in their environment and use different mechanisms to retain strategic flexibility and adapt to their environment.
+Such firms need to have the ability to (1) exploit current products and markets and (2) explore new products and markets that emerge when discontinuous change occurs.
+Only some specific phenomena, such as the characteristics of corporate change, have been studied with deductive, econometric means.
+first finding of decision making research is that decisions tend not to be the outcome of linear, conscious, rational processes but the outcome of complex, multi- level information processing.
+In situations in which companies use processes to ensure rational-comprehensive decision making, the success of these decisions is negatively influenced by environmental dynamism.
+In this contingency model, the participation of stakeholders in the decision making process was found to be critical to the decision making success.
+A previous study by Bourgeois and Eisenhardt found that in high-velocity environments, com- panies need to balance three paradoxes: (1) make major decisions carefully, but decide quickly
+This leads to the conclusion that if corporate foresight plays the role of an adviser and provides information for decisions, then it can be expected to have an impact on the final decision and thus that it can contribute to the quality and success of a decision.
+For corporate foresight, it can be concluded that participation should increase the probability of usage of the foresight insights.
+the overall question of innovation management Research is how companies should build structures and capabilities to continuously create new products, change internal processes, and develop new markets to ensure long-term competitiveness.
+In the following two chapters, the research on radical innovation and on disruptions will be analyzed to confirm the hypothesis that corporate foresight can indeed increase the chances that companies will create value from discontinuous change.
+Richard Leifer calls innovations radical if they can deliver a fivefold to tenfold increase in product performance, if they introduce entirely new product performance measures, or if they introduce a cost reduction of at least 30%.
+Further research has shown that successful radical innovations in large companies are often achieved by committed individuals that can be described by traits (champions) or by their role and function (promoters).
+It was shown that a corporate mindset which is analytical, proactive, and aggressive positively influences the success of radical innovation projects.
+But other aspects, such as organizational structures for the development of radical innova- tions, are still being studied with the help of qualitative and inductive means.
+In the following years, Christensen's theory on disruption has achieved high popularity among managers, but it has also been criticized by scholars for its limited predictive capacity, and thus its limited usefulness in providing managerial guidance.
+Christensen illustrated with cases the disruptive potential of emerging technologies.
+From Table 2.6 on the following three pages, it can be seen that the maturity of research on disruptions is still in the inductive theory development stage.
+Most research is still conducted by means of case studies or is purely conceptual.
+It is used as a term to describe the whole range of research conducted to help organizations, individuals, and governments explore, prepare for, and respond to changes in the environment.
+Many scholars have aimed to differentiate terms used in this broad field.
+So far, the attempts to develop a common definition have not produced clarity, and many scholars use terms synonymously.
+Table 2.7 does not aim to produce clarity on terminology but to provide some guidance for scholars willing to follow up on the literature in German, French, and English that I reference in this research.
+After the period of economic growth that followed the Second World War, many national governments were looking for ways to boost their national economies.
+In the 1970s, the focus was on using mathematical modeling and trend extrapolation to make predictions about the evolution of technology.
+This changed in the 1980s, when important limitations (particularly a weakness in identifying new technologies and disruptive change) of using past data and extrapolating them into the future became apparent.
+Scholars report on the ongoing process of finding appropriate criteria for measuring the impact of foresight exercises.
+It can be concluded that the need for method development and the identification of best practices remains, before research will move toward theory development and subsequently to theory testing.
+In their analysis, they show that the technology focus of corporate innovation management in the 1950s and 1960s was equally present in the way companies were exploring the future.
+Strategic management was primarily about planning how the company should be changed toward a desired new state and ensuring the transition by controlling the process.
+Shell saw the future as something that can not be planned, recognizing that by nature the future is uncertain.
+In consequence, Shell shifted its strategic planning toward scenario analysis, which makes it possible to identify different possible futures in order to be able to judge today's decisions based on their robustness in terms of success in the various possible futures.
+The foresighters are responsible for running foresight activities and facilitating the transition of weak signals to issues to recommendations and finally for triggering actions.
+Past research has been either conceptual or inductive (see Table 2.10).
+Schwarz (2007) used a Delphi analysis to capture experts' opinions on future directions in corporate foresight, and many other authors used case studies to broaden the knowledge about the configuration of corporate foresight systems.
+These case studies have been conducted in the insurance industry and the airline industry and with cross-industry samples.
+Of the 14 empirical studies mentioned in Table 2.10, only two have used internal customers (i.e., the internal stakeholder, who uses the foresight insights for decision making or triggering managerial actions).
+Such theoretical frames are also often referred to as theories, and they help guide and position the research.
+The idea originated with the work of Woodward, who argued that technologies directly determine differences in organizational attributes such as span of control, centralization of authority, and the formalization of rules and procedures.
+This finding was revolutionary at a time when general management theory was dominated by the idea that given a certain goal there is one best way to organize a company.
+This initial work triggered a whole school of thought in which scholars defined technology as the contingency factor and studied its impact on organizational factors.
+In this line of research, the books of Lawrence and Lorsch and Khandwalla are possibly the most prominent works.
+Particularly Lawrence and Lorsch expected the optimal organizational structure to be determined entirely through the contingency factors, excluding the possibility that the organization itself could change the contingency factors or that there is more than one optimal way.
+For the development of the maturity model and the description of best practices, this leads to two conclusions.
+In addition, corporate foresight systems are rare, given the lack of successful implementation of corporate foresight systems.
+These conclusions can be used to define the current body of knowledge, identify the research gap, and guide the research design.
+These 12 conclusions can be translated into two basic motivations for building corporate foresight systems, six guidelines for building corporate foresight systems, and the definition of the research gap.
+This could results in (1) overestimating the impact of corporate foresight and (2) limiting the ability to identify the whole range of benefits created by corporate foresight.
+Particularly troubling is that in the only research on corporate foresight in which top management and the persons reporting directly to top management were questioned, the top management reported a limited use of foresight insights, and thus a limited impact of corporate foresight.
+In consequence, it neglected other elements such as actors (foresighters and their internal customers), information sources, and the cultural characteristics of a firm, which may have an important impact on the overall corporate foresight ability of a firm.
+As the survival of a company relies on many factors and actions outside corporate foresight systems, empirical investigation would need to control most other variables to obtain sufficient effect strengths.
+And how can these elements be made operational?
+Migration facilitated diffusion of advanced technological practices, but, since eighteenth- and nineteenth-century migration was uneven, so, too, was the diffusion of those practices.
+In contrast, migration pressures in the twenty-first century have increasingly come to be focused on Southern desires to move to the relative affluence and prosperity of the North.
+South and Central Americans want to live and work in North America.
+Asians want to live and work in North America and Europe.
+Political and physical barriers to these movements have intensified as the pressures for migration out of the South have accelerated.
+Africans and southwest Asians want to live and work in Europe.
+To the extent that industrialization has been a major agent in bringing about environmental deterioration, Northerners will seek to persuade Southerners to forgo industrialization in order to head off further degradation; China, for instance, may shortly become the world's leading source of pollution.
+Just who will win and lose as a consequence of climate change is not fully predictable.
+I explore these claims, accepting some and challenging others, and consider how they may be addressed.
+On this issue a paper on `Reflections on the field of educational management studies' is illuminating.
+Management also includes three processes (mobilising, managing and monitoring) which taken together can be "subsumed under the rubric of policy implementation".
