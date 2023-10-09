@@ -1,2 +1,0 @@
-SurreyAI
-In ensembleTQ, we train multiple multilingual QE models by fine tuning autoencoder PTLMs and report mean z-scores. The PTLMs we choose are InfoXLM-large, XLMV-base and XLMR-large.
